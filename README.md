@@ -1,9 +1,64 @@
+<img src="./frontend/public/assets/logo.png" alt="SeppyLingo Logo" width="180" />
+
 # SeppyLingo
 ## Eine Sprachlern-App, die wirklich Spass macht
 
 Das Ziel unserer Web Application ist zu zeigen dass Sprachen lernen nicht nur harte Arbeit sein muss, sondern dass man auch Spass dabei haben kann.
 
 Um dies zu zeigen haben wir uns auf das den Ansatz der Gamification konzentriert
+## Static Showcase
+
+### Landing Page & Authentifizierung
+<img src="./StaticShowcase/landingpage.png" alt="Landing Page" width="750" />
+
+*Registrierung und Authentifizierung für Benutzer zum Erstellen und Einloggen in ein individuelles Lernprofil.*
+
+### Hauptmenü & Dashboard
+<img src="./StaticShowcase/homepage.png" alt="Homepage" width="750" />
+
+*Zentrale Übersicht über strukturierte Lernübungen, Arcade-Spiele, Prüfungen und das Hinzufügen neuer Vokabeln.*
+
+### Benutzerprofil
+<img src="./StaticShowcase/profilepage.png" alt="Profilseite" width="750" />
+
+*Übersicht über den eigenen Lernfortschritt, gesammelte Badges, XP, individuelle Einstellungen (Lernstil und Minispiel) sowie die Freundesliste.*
+
+### KI-Aufgabengenerierung
+<img src="./StaticShowcase/AIgeneratedquestion.png" alt="KI-Aufgaben konfigurieren" width="600" />
+
+*Automatische Generierung maßgeschneiderter Übungsaufgaben zu beliebigen Themen und mit wählbarer Fragenanzahl mithilfe der Gemini-KI.*
+
+### Karteikarten (Flashcards)
+<img src="./StaticShowcase/flashcards.png" alt="Karteikarten" width="650" />
+
+*Interaktives Vokabeltraining mit digitalen Lernkarten, Punkte- und Fehlererfassung sowie integrierter KI-Hilfestellung.*
+
+### Multiple-Choice-Quiz
+<img src="./StaticShowcase/multiplechoice.png" alt="Multiple Choice" width="600" />
+
+*Vokabel- und Grammatiküberprüfung durch Multiple-Choice-Fragen mit thematischer Zuordnung und Fortschrittsanzeige.*
+
+### Bilder-Quiz
+<img src="./StaticShowcase/picturequiz.png" alt="Bilder-Quiz" width="600" />
+
+*Visuelles Vokabellernen durch Zuordnung von Bildern zu den richtigen Begriffen mit direktem Punkte-Feedback.*
+
+### Hörverstehen
+<img src="./StaticShowcase/listening.png" alt="Hörverstehen" width="600" />
+
+*Audiogestütztes Hörtraining zur Verbesserung des Sprachverständnisses mit Satz- und Antwortüberprüfung.*
+
+### Arcade-Spiele (Phaser)
+<img src="./StaticShowcase/phasergame.png" alt="Phaser Mini-Game" width="750" />
+
+*Gamification pur: Retro-Arcade-Spiele (wie Bubble Bobble und Snake, umgesetzt mit Phaser) zum spielerischen Wiederholen von Vokabeln.*
+
+### Datenschutz
+<img src="./StaticShowcase/privacypolicy.png" alt="Datenschutzhinweis" width="500" />
+
+*Transparente Datenschutzeinwilligung für Benutzer ohne Weitergabe persönlicher Daten an Dritte.*
+
+
 ## Unser Tech Stack
 
 
@@ -60,6 +115,7 @@ ein API Key eingetragen werden
 gemini.api.key=DEIN_API_KEY
 ```
 ***
+
 
 
 
