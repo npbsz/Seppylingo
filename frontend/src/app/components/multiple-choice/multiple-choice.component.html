@@ -1,0 +1,76 @@
+<div class="container">
+
+  <div class="header">
+    <h2>Multiple Choice</h2>
+    <button *ngIf="currentTheme" (click)="backToMenu()" class="btn-secondary">
+       ⬅️ Anderes Thema wählen
+    </button>
+  </div>
+  <hr/>
+
+  <div *ngIf="!currentTheme" class="menu-view">
+    <h3>Wähle ein Thema:</h3>
+    <div class="theme-grid">
+      <button *ngFor="let t of themes" (click)="selectTheme(t)" class="theme-card">
+        {{ t }}
+      </button>
+    </div>
+  </div>
+
+
+  <div *ngIf="currentTheme && !gameStarted" class="start-view">
+    <h1>Thema: {{ currentTheme }}</h1>
+    <p>Bist du bereit?</p>
+    <button (click)="startGame()" class="btn-start">
+      🚀 Jetzt starten
+    </button>
+  </div>
+
+
+  <div *ngIf="gameStarted && question && !allDone" class="game-view">
+    
+    <div class="status-bar">
+      <span *ngIf="!isReviewMode">Fortschritt: {{ askedIds.size }} / {{ totalWordsInTheme }}</span>
+      <span *ngIf="isReviewMode" class="highlight-review">Wiederholung: Noch {{ reviewQueue.length + 1 }} Wörter</span>
+    </div>
+
+    <div class="question-box">
+      <h3>{{ question.wordToTranslate }}</h3>
+    </div>
+
+    <div class="options-grid">
+      <button 
+        *ngFor="let opt of question.options" 
+        (click)="onAnswer(opt)" 
+        class="btn-option"
+        [class.btn-success]="selectedOption === opt && isAnswerCorrect === true"
+        [class.btn-error]="selectedOption === opt && isAnswerCorrect === false"
+        [disabled]="isProcessing"> 
+        {{ opt }}
+      </button>
+    </div>
+    
+    </div>
+
+
+  <div *ngIf="allDone" class="result-view">
+    <h3>🎉 Runde beendet!</h3>
+    
+    <div *ngIf="wrongIds.length === 0">
+        <p class="success-msg">Perfekt! Alles richtig.</p>
+    </div>
+
+    <div *ngIf="wrongIds.length > 0">
+        <p>Du musst noch <strong>{{ wrongIds.length }}</strong> Wörter üben.</p>
+        <button (click)="startReview()" class="btn-review">
+           ⚠️ Falsche Wörter üben ({{ wrongIds.length }})
+        </button>
+    </div>
+
+    <div class="result-actions">
+        <button (click)="restartTheme()" class="btn-secondary">🔄 Thema neu starten</button>
+        <button (click)="backToMenu()" class="btn-secondary">🏠 Zurück zum Menü</button>
+    </div>
+  </div>
+
+</div>

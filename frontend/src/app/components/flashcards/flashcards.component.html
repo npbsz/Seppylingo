@@ -1,0 +1,210 @@
+<div class="trainer-page">
+
+  <!-- Header / Status -->
+  <div class="header-card">
+    <div class="header-row">
+      <div class="header-block">
+        <div class="label">Modus:</div>
+        <div class="mode-toggle">
+          <button
+            class="mode-pill"
+            *ngIf="phase === 'idle' || mode === 'en-de'"
+            [class.active]="mode === 'en-de'"
+            [disabled]="phase !== 'idle'"
+            (click)="setMode('en-de')">
+            EN → DE
+          </button>
+          <button
+            class="mode-pill"
+            *ngIf="phase === 'idle' || mode === 'de-en'"
+            [class.active]="mode === 'de-en'"
+            [disabled]="phase !== 'idle'"
+            (click)="setMode('de-en')">
+            DE → EN
+          </button>
+          <button
+            class="mode-pill"
+            *ngIf="phase === 'idle' || mode === 'mixed'"
+            [class.active]="mode === 'mixed'"
+            [disabled]="phase !== 'idle'"
+            (click)="setMode('mixed')">
+            Zufall
+          </button>
+
+        </div>
+      </div>
+
+      <div class="header-block center">
+        <div class="label">Phase:</div>
+        <div class="phase-text">
+          <ng-container [ngSwitch]="phase">
+            <span *ngSwitchCase="'idle'">Noch nicht gestartet</span>
+            <span *ngSwitchCase="'training'">
+              Training ({{ currentIndex }}/{{ maxCards }})
+            </span>
+            <span *ngSwitchCase="'ask-errors'">
+              Training abgeschlossen
+            </span>
+            <span *ngSwitchCase="'errors'">
+              Fehler-Runde ({{ currentIndex }}/{{ errorRoundSize || mistakes || maxCards }})
+            </span>
+            <span *ngSwitchCase="'ask-errors-again'">
+              Fehler-Runde abgeschlossen
+            </span>
+            <span *ngSwitchCase="'finished'">
+              Lektion beendet
+            </span>
+          </ng-container>
+        </div>
+      </div>
+
+      <div class="header-block right">
+        <div class="score-row">
+          <div class="score">
+            <div class="label">Punkte</div>
+            <div class="value">{{ points }}</div>
+          </div>
+          <div class="score">
+            <div class="label">Gemerkte Fehler</div>
+            <div class="value">{{ mistakes }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lektion nicht gestartet -->
+  <div *ngIf="phase === 'idle'" class="lesson-state">
+    <h2>Lektion noch nicht gestartet</h2>
+    <p>
+      Wähle oben einen Modus und starte dann deine Lektion mit
+      <strong>{{ maxCards }} Karten</strong>.
+    </p>
+    <button class="btn primary" (click)="startLesson()">Lektion starten</button>
+  </div>
+
+  <!-- Nachfrage: Fehler nach Training wiederholen? -->
+  <div *ngIf="phase === 'ask-errors'" class="lesson-state">
+    <h2>Training abgeschlossen</h2>
+    <p>
+      Du hast die {{ maxCards }} Trainingskarten bearbeitet.<br>
+      Es sind noch <strong>{{ mistakes }}</strong> Fehler im Speicher.
+    </p>
+    <p>Möchtest du deine Fehler jetzt in einer zusätzlichen Runde wiederholen?</p>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <button class="btn primary" (click)="startErrorRound()">
+        Ja, Fehler wiederholen
+      </button>
+      <button class="btn" (click)="skipErrorRound()">
+        Nein, Lektion beenden
+      </button>
+    </div>
+  </div>
+
+  <!-- Nachfrage: Fehler-Runde erneut wiederholen? -->
+  <div *ngIf="phase === 'ask-errors-again'" class="lesson-state">
+    <h2>Fehler-Runde abgeschlossen</h2>
+    <p>
+      Es sind noch <strong>{{ mistakes }}</strong> Fehler übrig.
+    </p>
+    <p>Möchtest du deine Fehler noch einmal wiederholen?</p>
+    <div style="display:flex; gap:12px; flex-wrap:wrap;">
+      <button class="btn primary" (click)="repeatErrorsAgain()">
+        Ja, Fehler erneut wiederholen
+      </button>
+      <button class="btn" (click)="skipErrorsAgain()">
+        Nein, Lektion beenden
+      </button>
+    </div>
+  </div>
+
+  <!-- Fehlermeldung -->
+  <div *ngIf="error" class="alert alert-error">
+    {{ error }}
+  </div>
+
+  <!-- Karte + Buttons (Training oder Fehlerrunde) -->
+  <div *ngIf="phase === 'training' || phase === 'errors'" class="card-area">
+
+    <div class="card-hint">Karte zum Umdrehen anklicken</div>
+
+    <div class="card-wrapper" *ngIf="card">
+      <div
+        class="card vocab-card"
+        [class.flipped]="isBack"
+        (click)="toggleCard()">
+        <div class="card-inner">
+          <div class="card-face card-front">
+            <div class="card-text">{{ card.front }}</div>
+          </div>
+          <div class="card-face card-back">
+            <div class="card-text">{{ card.back }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KI-Erklärung Button -->
+    <div class="ai-row" *ngIf="card">
+      <button
+        class="btn"
+        (click)="explainCard()"
+        [disabled]="loading || aiLoading">
+        {{ aiLoading ? 'KI denkt…' : 'KI hilfe' }}
+      </button>
+    </div>
+
+    <!-- KI-Fehler -->
+    <div *ngIf="aiError" class="alert alert-error">
+      {{ aiError }}
+    </div>
+
+    <!-- KI-Ergebnis -->
+    <div *ngIf="aiResult" class="ai-box">
+      <div class="ai-title">{{ labelExplanation }}</div>
+      <div class="ai-text">{{ aiResult.explanation }}</div>
+
+      <div class="ai-title" *ngIf="aiResult.examples?.length">{{ labelExamples }}</div>
+      <ul *ngIf="aiResult.examples?.length">
+        <li *ngFor="let ex of aiResult.examples">{{ ex }}</li>
+      </ul>
+
+      <div class="ai-title" *ngIf="aiResult.usageTips?.length">{{ labelTips }}</div>
+      <ul *ngIf="aiResult.usageTips?.length">
+        <li *ngFor="let tip of aiResult.usageTips">{{ tip }}</li>
+      </ul>
+    </div>
+
+
+    <!-- Antwort-Buttons -->
+    <div class="answer-row">
+      <button
+        class="btn answer-btn wrong"
+        (click)="onAnswer(false)"
+        [disabled]="!canAnswer()">
+        Falsch
+      </button>
+      <button
+        class="btn answer-btn right"
+        (click)="onAnswer(true)"
+        [disabled]="!canAnswer()">
+        Richtig
+      </button>
+    </div>
+  </div>
+
+  <!-- Lektion beendet -->
+  <div *ngIf="phase === 'finished'" class="lesson-state finished">
+    <h2>Lektion beendet 🎉</h2>
+    <p>
+      Du hast diese Lektion abgeschlossen.
+      <br />
+      Punkte: <strong>{{ points }}</strong>,
+      gemerkte Fehler: <strong>{{ mistakes }}</strong>.
+    </p>
+    <button class="btn primary" (click)="restartFromFinished(); startLesson()">
+      Neue Lektion starten
+    </button>
+  </div>
+
+</div>

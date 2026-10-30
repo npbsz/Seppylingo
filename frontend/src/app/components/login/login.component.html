@@ -1,0 +1,53 @@
+<div class="auth-container">
+  <!-- Logo statt Text -->
+  <div class="logo-section">
+    <img src="assets/logo.png" alt="SeppyLingo" class="logo-img" />
+    <h1 class="retro-title">SeppyLingo</h1>
+  </div>
+
+  <!-- Login-Formular -->
+  <form (ngSubmit)="onLogin()" class="auth-form">
+    <div class="form-group">
+      <label>BENUTZERNAME</label>
+      <input 
+        type="text" 
+        [(ngModel)]="username" 
+        name="username"
+        placeholder="Benutzername eingeben"
+        required
+        class="retro-input"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>PASSWORT</label>
+      <input 
+        type="password" 
+        [(ngModel)]="password" 
+        name="password"
+        placeholder="Min. 6 Zeichen"
+        required
+        class="retro-input"
+      />
+    </div>
+
+    <!-- Fehlermeldung -->
+    <div *ngIf="errorMessage" class="error-box">
+      ⚠️ {{errorMessage}}
+    </div>
+
+    <!-- Success -->
+    <div *ngIf="successMessage" class="success-box">
+      ✓ {{successMessage}}
+    </div>
+
+    <button type="submit" class="btn-submit">
+      🚀 EINLOGGEN
+    </button>
+  </form>
+
+  <div class="auth-footer">
+    <p>Noch kein Account?</p>
+    <a routerLink="/register" class="link-secondary">HIER REGISTRIEREN</a>
+  </div>
+</div>

@@ -1,0 +1,97 @@
+.exam-container {
+  max-width: 700px;
+  margin: 40px auto;
+  text-align: center;
+  color: #fff;
+}
+
+/* ================= TITLES ================= */
+
+.exam-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.question-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+
+.gap-text {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 14px;
+  margin-bottom: 24px;
+}
+
+/* ================= TTS BUTTON ================= */
+
+app-tts-button {
+  display: inline-block;
+  margin: 20px 0 20px 0; /* trennt Speaker sauber von Antworten */
+}
+
+/* ================= OPTIONS ================= */
+
+.options {
+  display: grid;
+  gap: 16px;
+  margin-top: 24px;
+  margin-bottom: 16px;
+}
+
+.grid-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+/* ================= OPTION BUTTONS ================= */
+
+.option-btn {
+  font-family: 'Press Start 2P', monospace;
+  background: #2c2c2c;
+  border: 2px solid #00ffff;
+  color: #fff;
+  padding: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.option-btn:hover {
+  background: #00ffff;
+  color: #000;
+}
+
+.option-btn.selected {
+  background: #00ffff;
+  color: #000;
+}
+
+/* ================= CONFIRM BUTTON ================= */
+
+.confirm-btn {
+  margin-top: 32px;
+  width: 100%;
+  padding: 16px;
+  font-family: 'Press Start 2P', monospace;
+  background: transparent;
+  border: 3px solid #888;
+  color: #888;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.confirm-btn:not(:disabled) {
+  border-color: #00ff88;
+  color: #00ff88;
+}
+
+.confirm-btn:not(:disabled):hover {
+  background: #00ff88;
+  color: #000;
+}
+
+.confirm-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}

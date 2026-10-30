@@ -1,0 +1,239 @@
+.game-container {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 20px;
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  color: white;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.5);
+}
+
+/* --- HEADER --- */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  border-bottom: 4px dashed #555;
+  padding-bottom: 1rem;
+}
+
+.back-btn {
+  background: none;
+  border: none;
+  color: #888;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+}
+
+.back-btn:hover {
+  color: #fff;
+  text-shadow: 2px 2px 0 #ff0000; /* Glitch-Effekt */
+}
+
+.score {
+  color: #ffd700;
+  text-shadow: 2px 2px 0 #000;
+}
+
+/* --- LADE SPINNER (PIXEL ART STYLE) --- */
+.loading-box {
+  padding: 40px;
+  color: #aaa;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  background-color: #ffd700;
+  margin: 0 auto 20px auto;
+  animation: pixel-spin 1.2s infinite steps(8);
+}
+
+@keyframes pixel-spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* --- BILD BEREICH --- */
+.image-frame {
+  border: 4px solid #ffffff;
+  background-color: #000;
+
+  /* Transparenz-Muster (Schachbrett) für Sticker */
+  background-image:
+    linear-gradient(45deg, #222 25%, transparent 25%),
+    linear-gradient(-45deg, #222 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #222 75%),
+    linear-gradient(-45deg, transparent 75%, #222 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+
+  display: inline-block;
+  margin-bottom: 2rem;
+  padding: 15px;
+  box-shadow: 8px 8px 0 #ffd700; /* Goldener Hard-Shadow */
+  min-height: 200px;
+  min-width: 200px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.quiz-image {
+  max-width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  display: block;
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,1)); /* Schatten für das Bild selbst */
+}
+
+/* --- ANTWORT BUTTONS --- */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.option-btn {
+  background-color: #000000;
+  color: #ffffff;
+  border: 4px solid #ffffff;
+  padding: 20px 10px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+
+  /* Der Retro-3D-Effekt */
+  box-shadow: 6px 6px 0 #555555;
+  transition: all 0.1s step-start;
+}
+
+/* Hover-Effekt: Invertieren und "Drücken" */
+.option-btn:hover:not(:disabled) {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+  transform: translate(4px, 4px); /* Button bewegt sich nach unten rechts */
+  box-shadow: 2px 2px 0 #555555;
+}
+
+.option-btn:active:not(:disabled) {
+  transform: translate(6px, 6px);
+  box-shadow: none;
+}
+
+/* Disabled State */
+.option-btn:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+/* --- FEEDBACK STATES --- */
+
+/* Richtig: Grün & Leuchtend */
+.option-btn.correct {
+  background-color: #00aa00 !important;
+  color: #fff !important;
+  border-color: #00ff00 !important;
+  box-shadow: 0 0 15px #00ff00, inset 0 0 10px #00ff00;
+  text-shadow: 1px 1px 0 #000;
+  transform: translate(0, 0); /* Reset Position */
+}
+
+/* Falsch: Rot & Wackeln */
+.option-btn.wrong {
+  background-color: #aa0000 !important;
+  border-color: #ff0000 !important;
+  color: #fff !important;
+  box-shadow: none;
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+/* Shake Animation (wie bei Treffer im Spiel) */
+@keyframes shake {
+  10%, 90% { transform: translate3d(-2px, 0, 0); }
+  20%, 80% { transform: translate3d(4px, 0, 0); }
+  30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+  40%, 60% { transform: translate3d(6px, 0, 0); }
+}
+
+/* --- GAME OVER & NEXT BUTTONS --- */
+
+.game-over-box {
+  border: 4px solid #ffd700;
+  padding: 30px;
+  background: #000;
+  animation: slide-up 0.5s ease-out;
+}
+
+@keyframes slide-up {
+  from { transform: translateY(50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.final-score {
+  font-size: 3rem;
+  color: #ffd700;
+  text-shadow: 4px 4px 0 #000, -2px -2px 0 #ff0000; /* Doppelter Schatten */
+  margin: 20px 0;
+}
+
+.feedback-area {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: #000;
+  border: 2px dashed #888;
+}
+
+.msg-correct { color: #00ff00; text-shadow: 2px 2px 0 #000; }
+.msg-wrong { color: #ff5555; text-shadow: 2px 2px 0 #000; }
+
+.next-btn {
+  background: #ffd700;
+  color: black;
+  border: 4px solid #fff;
+  padding: 15px 30px;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 15px;
+  box-shadow: 6px 6px 0 #000;
+  text-transform: uppercase;
+}
+
+.next-btn:hover {
+  background-color: #ffea00;
+  transform: translate(2px, 2px);
+  box-shadow: 4px 4px 0 #000;
+}
+.back-btn-large {
+  background: #000;
+  color: white;
+  border: 4px solid #fff;
+  padding: 15px 30px;
+  font-family: inherit;
+  font-weight: bold;
+  cursor: pointer;
+  width: fit-content;
+  box-shadow: 6px 6px 0 #555; /* Grauer Schatten für Sekundär-Button */
+  text-transform: uppercase;
+  transition: all 0.1s step-start;
+}
+
+/* Mobile Responsivität */
+@media (max-width: 600px) {
+  .options-grid {
+    grid-template-columns: 1fr; /* Buttons untereinander auf Handy */
+  }
+  .quiz-image {
+    height: 200px;
+  }
+}

@@ -1,0 +1,70 @@
+/* Container for the grid */
+.options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: 20px 0;
+}
+
+/* Base Button Style (From your CSS) */
+.grid-btn {
+  width: 100%; /* Ensures it fills the grid cell */
+  height: 60px;
+  font-size: 0.8rem;
+  background-color: #555555;
+  color: #ffffff;
+  border: 3px solid #ffffff;
+  border-radius: 0;
+  transition: all 0.1s linear;
+  font-family: 'Press Start 2P', cursive;
+  cursor: pointer;
+
+  /* Overrides for Angular Material if you use mat-button */
+  box-shadow: none !important;
+  line-height: normal;
+}
+
+/* Hover State*/
+.grid-btn:hover:not(:disabled):not(.selected-primary):not(.btn-success):not(.btn-error) {
+  background-color: #777777;
+}
+
+/* --- STATE 1: User Selected (Neutral) --- */
+/* This matches your ".selected" CSS but maps to the TS logic */
+.selected-primary {
+  background-color: #ffc107 !important; /* Retro-Gelb */
+  border: 3px solid #000000 !important;
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+/* --- STATE 2: Correct Answer --- */
+/* Matches your ".feedback.correct" style */
+.btn-success {
+  background-color: #00aa00 !important; /* Retro-Grün */
+  border: 3px solid #000000 !important;
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+/* --- STATE 3: Wrong Answer --- */
+/* Matches your ".feedback.incorrect" style */
+.btn-error {
+  background-color: #ff5555 !important; /* Retro-Rot */
+  border: 3px solid #000000 !important;
+  color: #000000 !important;
+  font-weight: bold;
+}
+
+/* Disabled State */
+.grid-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.9;
+}
+
+/* Responsive */
+@media (max-width: 450px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}

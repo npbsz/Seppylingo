@@ -1,0 +1,79 @@
+<div class="exam-container" *ngIf="currentQuestion">
+
+  <h2 class="exam-title">
+    Frage {{ index + 1 }} / {{ exam.questions.length }}
+  </h2>
+
+  <!-- MULTIPLE CHOICE -->
+  <div *ngIf="currentQuestion.type === 'MULTIPLE_CHOICE'">
+    <p class="question-text">
+      Übersetze:
+      <strong>{{ currentQuestion.multipleChoice?.wordToTranslate }}</strong>
+    </p>
+
+    <div class="options">
+      <button
+        *ngFor="let option of currentQuestion.multipleChoice?.options"
+        class="option-btn"
+        (click)="selectAnswer(option)">
+        {{ option }}
+      </button>
+    </div>
+  </div>
+
+  <!-- GAP TEXT -->
+  <div *ngIf="currentQuestion.type === 'GAP_TEXT'">
+    <p class="question-text">Ergänze den Satz:</p>
+
+    <p class="gap-text">
+      {{ currentQuestion.gapText?.textWithBlank }}
+    </p>
+
+    <div class="options grid-2">
+      <button
+        *ngFor="let option of options"
+        class="option-btn"
+        [class.selected]="selectedAnswer === option"
+        (click)="selectOption(option)">
+        {{ option }}
+      </button>
+    </div>
+
+    <button
+      class="confirm-btn"
+      [disabled]="!selectedAnswer"
+      (click)="confirmGapAnswer()">
+      Antwort überprüfen
+    </button>
+  </div>
+
+  <!-- LISTENING -->
+  <div *ngIf="currentQuestion.type === 'LISTENING'">
+
+    <p class="question-text">Höre zu und wähle den richtigen Satz:</p>
+
+    <app-tts-button
+      [textToSpeak]="currentQuestion.listening?.phrases[0]"
+      [lang]="'en-US'">
+    </app-tts-button>
+
+    <div class="options grid-2">
+      <button
+        *ngFor="let option of options"
+        class="option-btn"
+        [class.selected]="selectedAnswer === option"
+        (click)="selectOption(option)">
+        {{ option }}
+      </button>
+    </div>
+
+    <button
+      class="confirm-btn"
+      [disabled]="!selectedAnswer"
+      (click)="confirmListeningAnswer()">
+      Antwort überprüfen
+    </button>
+
+  </div>
+
+</div>

@@ -1,0 +1,210 @@
+/* Importiere eine Pixel-Schriftart von Google */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+/* Grundlayout */
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    font-family: 'Press Start 2P', cursive; /* Die Pixel-Schrift */
+    text-align: center;
+    background-color: #212121; /* Dunkelgrauer Arcade-Hintergrund */
+    color: #fff;
+    padding: 20px;
+    border: 4px solid #fff;
+    box-shadow: 10px 10px 0 #000; /* Harter Schatten */
+    margin-top: 20px;
+}
+
+.retro-title {
+    color: #f8e71c; /* Arcade Gelb */
+    text-shadow: 4px 4px #d0021b; /* Roter 3D-Effekt */
+    font-size: 1.5em;
+    line-height: 1.5;
+}
+
+.header {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 4px dashed #555;
+    padding-bottom: 20px;
+}
+
+hr {
+    display: none; /* Brauchen wir nicht mehr, wir haben border-bottom */
+}
+
+/* Menü kacheln */
+.theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.theme-card {
+    background-color: #000;
+    color: #00e5ff; /* Neon Blau */
+    border: 4px solid #00e5ff;
+    padding: 20px 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.8em;
+    cursor: pointer;
+    box-shadow: 6px 6px 0 #008ba3;
+    transition: transform 0.1s;
+}
+
+.theme-card:hover {
+    transform: translateY(4px); /* Drück-Effekt */
+    box-shadow: 2px 2px 0 #008ba3;
+    background-color: #111;
+}
+
+/* Start Screen*/
+.start-view h1 {
+    font-size: 1.2em;
+    color: #b8e986;
+    margin-bottom: 40px;
+}
+
+.btn-start {
+    background-color: #7ed321; /* Retro Grün */
+    color: #000;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1em;
+    padding: 20px 30px;
+    border: 4px solid #fff;
+    box-shadow: 8px 8px 0 #000;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-start:active {
+    transform: translate(4px, 4px);
+    box-shadow: 4px 4px 0 #000;
+}
+
+/* Spielfeld */
+.status-bar {
+    font-size: 0.7em;
+    color: #aaa;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.highlight-review {
+    color: #ff9600;
+    text-decoration: underline wavy;
+}
+
+.question-box {
+    background-color: #000;
+    border: 4px solid #fff;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: inset 0 0 20px #333; /* CRT Monitor Effekt innen */
+}
+
+.question-box h3 {
+    margin: 0;
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: #fff;
+}
+
+/* Antwort Buttons */
+.options-grid {
+    display: grid;
+    grid-template-columns: 1fr; /* Untereinander ist bei Retro oft lesbarer */
+    gap: 15px;
+}
+
+@media(min-width: 600px) {
+    .options-grid {
+        grid-template-columns: 1fr 1fr; /* Nebeneinander auf PC */
+    }
+}
+
+.btn-option {
+    background-color: #fff;
+    color: #000;
+    border: 4px solid #000;
+    padding: 15px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em; /* Die Schrift ist sehr breit, daher kleiner */
+    cursor: pointer;
+    box-shadow: 6px 6px 0 #555;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.btn-option:hover:not([disabled]) {
+    background-color: #e0e0e0;
+    transform: translate(2px, 2px);
+    box-shadow: 4px 4px 0 #555;
+}
+
+/* farben für richtig/falsch */
+.btn-success {
+    background-color: #4cd964 !important; /* Helles Grün */
+    border-color: #fff !important;
+    color: #000 !important;
+    box-shadow: none !important;
+    transform: translate(6px, 6px) !important;
+}
+
+.btn-error {
+    background-color: #ff3b30 !important; /* Helles Rot */
+    border-color: #fff !important;
+    color: #fff !important;
+    box-shadow: none !important;
+    transform: translate(6px, 6px) !important;
+}
+
+/*Ergebnis Screen */
+.result-view h3 {
+    color: #f8e71c;
+    margin-bottom: 30px;
+}
+
+.success-msg {
+    color: #4cd964;
+    margin-bottom: 30px;
+}
+
+.btn-review {
+    background-color: #ff9500; /* Orange */
+    color: #000;
+    border: 4px solid #fff;
+    padding: 15px 20px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.7em;
+    box-shadow: 6px 6px 0 #000;
+    cursor: pointer;
+    margin-bottom: 20px;
+    display: inline-block;
+}
+
+.result-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: #fff;
+    border: 2px solid #fff;
+    padding: 10px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 0.6em;
+    cursor: pointer;
+    text-transform: uppercase;
+}
+
+.btn-secondary:hover {
+    background-color: #fff;
+    color: #000;
+}

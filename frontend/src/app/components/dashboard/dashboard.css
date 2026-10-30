@@ -1,0 +1,695 @@
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+.dashboard-container, .section-title, .username, .welcome-message, .game-info h3
+{font-family: 'Press Start 2P', cursive;}
+/* Main container für das Dashboard */
+.dashboard-container {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Header section mit Logo und Titel */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 4px dotted #aaaaaa;
+}
+
+.logo {
+  width: 250px;
+  height: 250px;
+  filter: drop-shadow(0 4px 4px rgba(0,0,0,0.1));
+}
+
+/* Standard-h1 im Header nur für margin */
+.dashboard-header h1 {
+  margin: 0;
+}
+
+/* Animierter Titel */
+.dashboard-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #dddddd;
+  display: inline-block;
+  white-space: nowrap;
+}
+
+/* Einzelne Buchstaben */
+.title-letter {
+  display: inline-block;
+}
+
+/* Animations-Klasse */
+.title-letter-animate {
+  animation: titleBounce 0.35s ease-out;
+}
+
+@keyframes titleBounce {
+  0% {
+    transform: translateY(0);
+  }
+  30% {
+    transform: translateY(-6px);
+  }
+  60% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.welcome-message {
+  font-size: 1.1rem;
+  color: #dddddd;
+  margin-top: 1.5rem;
+}
+
+/* ========= Motivations-Box ========= */
+
+.motivation-box {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  padding: 1rem 1.5rem;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center;
+}
+
+.motivation-label {
+  font-size: 0.8rem;
+  color: #ffc107;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.motivation-text {
+  font-size: 0.75rem;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Tipp-Animation + Puls */
+.motivation-animate {
+  animation: motivationFade 0.7s ease-out;
+}
+
+@keyframes motivationFade {
+  0% {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.motivation-pulse {
+  animation: motivationPulse 1s ease-in-out infinite;
+}
+
+@keyframes motivationPulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.03);
+  }
+}
+
+/* ========= Sektionen (Lern + Arcade) ========= */
+
+.section-block {
+  margin-top: 2.5rem;
+}
+
+.section-header {
+  margin-bottom: 1rem;
+  border-left: 4px solid #ffffff;
+  padding-left: 0.75rem;
+}
+
+.section-title {
+  font-size: 1.3rem;
+  color: #ffffff;
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.section-subtitle {
+  font-size: 0.8rem;
+  color: #cccccc;
+  margin: 0.25rem 0 0 0;
+}
+
+/* Arcade-Optik leicht anders betonen */
+.arcade-section {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 4px dotted #888888;
+}
+
+.arcade-title {
+  color: #55ff55;
+}
+
+.arcade-subtitle {
+  color: #aaffaa;
+}
+
+/* Grid */
+.game-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Game cards */
+.game-grid > div {
+  display: flex;
+  align-items: center;
+  background-color: #2e2e2e;
+  padding: 1.5rem;
+  border-radius: 0;
+  border: 4px solid #ffffff;
+  box-shadow: none;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.game-grid > div:hover {
+  background-color: #00aa00;
+  color: #000000;
+  transform: none;
+  box-shadow: none;
+}
+
+.game-grid > div:hover .game-info h3,
+.game-grid > div:hover .game-info p {
+  color: #000000;
+}
+
+/* Arcade-Grid Hover */
+.arcade-grid > div:hover {
+  background-color: #4b0082;
+  color: #ffffff;
+}
+
+.arcade-grid > div:hover .game-info h3,
+.arcade-grid > div:hover .game-info p {
+  color: #ffffff;
+}
+
+/* Icon placeholder */
+.game-icon-placeholder {
+  flex-shrink: 0;
+  width: 60px;
+  height: 60px;
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  border-radius: 0;
+  margin-right: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arcade-icon-placeholder {
+  border-color: #55ff55;
+}
+
+.icon-emoji {
+  font-size: 2.5rem;
+}
+
+.game-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.game-info p {
+  margin: 0;
+  color: #dddddd;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+/* Disabled/Coming Soon */
+.game-grid > div.disabled {
+  background-color: #2e2e2e;
+  opacity: 0.7;
+  cursor: not-allowed;
+  border-color: #888888;
+}
+
+.game-grid > div.disabled:hover {
+  background-color: #2e2e2e;
+  color: #ffffff;
+}
+
+.soon-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background-color: #ffc107;
+  color: #000000;
+  padding: 0.3rem 0.5rem;
+  border-radius: 0;
+  font-size: 0.65rem;
+  font-weight: 600;
+  border: 2px solid #000000;
+}
+
+.arcade-soon-badge {
+  background-color: #55ff55;
+  color: #000000;
+}
+
+/* Responsive grid */
+@media (max-width: 768px) {
+  .game-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Vocab form container */
+.vocab-form {
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  padding: 1.5rem;
+  margin-top: 6rem;
+  margin-bottom: 2rem;
+}
+
+.vocab-form h2 {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-top: 5rem;
+  margin-bottom: 3rem;
+  border-bottom: 4px dotted #aaaaaa;
+  padding-bottom: 1rem;
+}
+
+/* Form rows */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  color: #dddddd;
+  font-size: 0.8rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Inputs */
+.vocab-form input[type="text"],
+.vocab-form select {
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  color: #ffffff;
+  padding: 0.75rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+  border-radius: 0;
+  outline: none;
+}
+
+.vocab-form input[type="text"]::placeholder {
+  color: #888;
+  opacity: 1;
+}
+
+/* Submit button */
+.vocab-form button[type="submit"] {
+  width: 100%;
+  background-color: #00aa00;
+  border: 4px solid #000000;
+  color: #000000;
+  padding: 1rem;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 0;
+  transition: all 0.1s linear;
+}
+
+.vocab-form button[type="submit"]:hover {
+  background-color: #55ff55;
+}
+
+/* Disabled button */
+.vocab-form button[type="submit"]:disabled {
+  background-color: #444444;
+  border-color: #888888;
+  color: #888888;
+  cursor: not-allowed;
+}
+
+/* Messages */
+.form-message {
+  font-size: 0.8rem;
+  color: #ffc107;
+  margin-top: 1.5rem;
+  text-align: center;
+}
+
+/* Responsive form */
+@media (max-width: 768px) {
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 0;
+  }
+
+  .form-group {
+    margin-bottom: 1rem;
+  }
+}
+/* ========== USER HEADER (RETRO-GAMING STYLE) ========== */
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  background: rgba(0, 0, 0, 0.6);
+  border: 3px solid #00ffff;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.5),
+              inset 0 0 20px rgba(0, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.user-header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(0, 255, 255, 0.2),
+    transparent
+  );
+  animation: scan 3s linear infinite;
+}
+
+@keyframes scan {
+  0% {
+    left: -100%;
+  }
+  100% {
+    left: 100%;
+  }
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  z-index: 1;
+}
+
+.user-avatar {
+  width: 50px;
+  height: 50px;
+  background: linear-gradient(135deg, #00ffff, #ff00ff);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.8rem;
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  animation: pulse-avatar 2s ease-in-out infinite;
+}
+
+@keyframes pulse-avatar {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 15px rgba(0, 255, 255, 0.8);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px rgba(0, 255, 255, 1);
+  }
+}
+
+.user-details-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.username {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 1.2rem;
+  color: #00ffff;
+  text-shadow: 0 0 10px rgba(0, 255, 255, 0.8),
+               0 0 20px rgba(0, 255, 255, 0.5);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Neuer Style für Punkte */
+.user-score {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  color: #ffea00;
+  margin-top: 0.4rem;
+  text-shadow: 1px 1px 0 #000;
+}
+
+.logout-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #ff5e4d, #ff3838);
+  border: 3px solid #ff0000;
+  border-radius: 8px;
+  color: #ffffff;
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.6),
+              inset 0 0 10px rgba(255, 0, 0, 0.3);
+  z-index: 1;
+}
+
+.logout-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.5s, height 0.5s;
+}
+
+.logout-btn:hover::before {
+  width: 150px;
+  height: 150px;
+}
+
+.logout-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 1),
+              inset 0 0 15px rgba(255, 0, 0, 0.5);
+  border-color: #ffff00;
+}
+
+.logout-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 0 15px rgba(255, 0, 0, 0.8);
+}
+
+.logout-icon {
+  font-size: 1.3rem;
+  z-index: 1;
+}
+
+.logout-text {
+  z-index: 1;
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+  .user-header {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 1.5rem;
+  }
+
+  .user-info {
+    flex-direction: column;
+    text-align: center;
+    gap: 0.75rem;
+  }
+
+  .username {
+    font-size: 0.9rem;
+  }
+
+  .logout-btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.8rem;
+  }
+}
+
+/* ================= PRÜFUNGS-SEKTION (RETRO GOLD) ================= */
+
+.exam-section {
+  margin-top: 3rem;
+  /* Goldene gestrichelte Linie zur Abtrennung */
+  border-top: 4px dashed #ffc107;
+  padding-top: 2rem;
+}
+
+.exam-header {
+  border-left: 4px solid #ffc107; /* Goldener Balken links */
+  margin-bottom: 1.5rem;
+}
+
+.exam-title {
+  color: #ffc107; /* Goldene Schrift */
+  text-shadow: 2px 2px 0 #000000;
+}
+
+.exam-card {
+  background-color: #2e2e2e;
+  border: 4px solid #ffc107; /* Goldener Rahmen */
+  border-radius: 0; /* Pixel-Style: Keine Rundungen */
+  padding: 1.5rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.1s linear; /* Schnelle Retro-Transition */
+  box-shadow: 8px 8px 0 rgba(0,0,0,0.5); /* Harter Schatten */
+}
+
+.exam-card:hover {
+  background-color: #ffc107; /* Wird bei Hover Gold */
+  color: #000000;
+  transform: translate(-2px, -2px); /* "Klick"-Effekt nach oben */
+  box-shadow: 10px 10px 0 rgba(0,0,0,0.5);
+}
+
+.exam-card:hover .exam-title,
+.exam-card:hover h3,
+.exam-card:hover p {
+  color: #000000; /* Text wird schwarz auf Gold */
+}
+
+/* Badge oben rechts */
+.exam-badge {
+  position: absolute;
+  top: -15px;
+  right: 10px;
+  background-color: #d32f2f; /* Signalrot */
+  color: #ffffff;
+  border: 2px solid #ffffff;
+  padding: 5px 10px;
+  font-size: 0.6rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+  box-shadow: 4px 4px 0 #000000;
+  z-index: 10;
+}
+
+.exam-content {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.exam-icon-wrapper {
+  width: 60px;
+  height: 60px;
+  border: 4px solid #ffc107;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000;
+}
+
+.exam-card:hover .exam-icon-wrapper {
+  border-color: #000000; /* Passt sich bei Hover an */
+}
+
+.exam-icon {
+  font-size: 2.5rem;
+}
+
+.exam-info h3 {
+  font-size: 1.1rem;
+  color: #ffc107;
+  margin: 0 0 0.5rem 0;
+  text-transform: uppercase;
+}
+
+.exam-info p {
+  font-size: 0.75rem;
+  color: #cccccc;
+  line-height: 1.4;
+  margin: 0;
+}
+
+/* Pfeil rechts */
+.exam-action {
+  margin-left: auto; /* Schiebt Pfeil nach rechts */
+  font-weight: bold;
+  font-size: 1rem;
+  color: #ffc107;
+}
+
+.exam-card:hover .exam-action {
+  color: #000000;
+}
+
+/* Mobile Anpassung */
+@media (max-width: 600px) {
+  .exam-content {
+    flex-direction: column;
+    text-align: center;
+  }
+  .exam-action {
+    margin-left: 0;
+    margin-top: 1rem;
+  }
+}

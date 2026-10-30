@@ -1,0 +1,15 @@
+#game-canvas-container {
+  width: 800px;
+  height: 600px;
+  margin: 0 auto;
+  overflow: hidden;
+  background: #000;
+}
+
+
+.game-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}

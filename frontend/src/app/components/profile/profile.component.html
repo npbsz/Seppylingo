@@ -1,0 +1,203 @@
+<div class="retro-screen" *ngIf="user; else loading">
+
+  <div class="scanlines"></div>
+  <div class="glow-overlay"></div>
+
+  <button *ngIf="!isOwnProfile" class="btn-back-home" (click)="loadMyProfile()">
+    << BACK TO MY PROFILE
+  </button>
+
+  <div class="profile-layout">
+
+    <div class="character-card">
+      <div class="card-header">
+        <span class="header-deco">===</span> {{ isOwnProfile ? 'MY DATA' : 'FRIEND DATA' }} <span class="header-deco">===</span>
+      </div>
+
+      <div class="avatar-frame-container">
+        <div class="avatar-frame" [class.editable]="isOwnProfile">
+          <img [src]="user.profilePictureUrl || '/assets/logo.png'" alt="Avatar" class="avatar-img">
+        </div>
+        <button *ngIf="isOwnProfile" class="btn-change-avatar" (click)="openAvatarModal()">
+          [ EDIT ]
+        </button>
+      </div>
+
+      <h2 class="retro-username">{{ user.username }}</h2>
+
+      <div class="level-badge">
+        LEVEL: {{ user.englishLevel || 'NOOB' }}
+      </div>
+
+      <div class="fav-game-display" *ngIf="user.favoriteGame">
+        ❤️ FAV GAME: <span class="game-highlight">{{ user.favoriteGame }}</span>
+      </div>
+
+      <div class="retro-stats">
+        <div class="stat-row">
+          <span class="stat-label">XP:</span>
+          <span class="stat-val blink-green">{{ user.totalPoints }}</span>
+        </div>
+        <div class="stat-row">
+          <span class="stat-label">FREUNDE:</span>
+          <span class="stat-val">{{ user.friends?.length || 0 }}</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="details-column">
+
+      <div class="retro-box">
+        <h3 class="box-title">> BADGES</h3>
+        <div class="badge-grid">
+          <div *ngFor="let badge of user.badges" class="retro-badge">
+            🏆 {{ badge }}
+          </div>
+          <p *ngIf="!user.badges?.length" class="empty-msg">
+            _INVENTORY EMPTY_
+          </p>
+        </div>
+      </div>
+
+      <div class="retro-box" *ngIf="isOwnProfile">
+        <h3 class="box-title">> VORLIEBEN</h3>
+
+        <div class="config-row">
+          <label>STYLE:</label>
+          <select [(ngModel)]="selectedPreference" class="retro-input">
+            <option value="">-- SELECT --</option>
+            <option value="Visual">VISUAL</option>
+            <option value="Auditory">AUDIO</option>
+            <option value="Reading">TEXT</option>
+          </select>
+        </div>
+
+        <div class="config-row mt-2">
+          <label>GAME:</label>
+          <select [(ngModel)]="selectedFavGame" class="retro-input">
+            <option value="">-- SELECT --</option>
+            <option value="Snake">Snake 🐍</option>
+            <option value="Multiple Choice">Quiz ❓</option>
+            <option value="Lückentext">Lückentext 📝</option>
+            <option value="Hörverstehen">Hörverstehen 🎧</option>
+            <option value="Flashcards">Flashcards 🃏</option>
+          </select>
+        </div>
+
+        <button (click)="savePreferences()" class="retro-btn mt-2">
+          SAVE CONFIG
+        </button>
+      </div>
+
+      <div class="retro-box" *ngIf="!isOwnProfile">
+        <h3 class="box-title">> PLAYER CONFIG</h3>
+        <p>LEARNING STYLE: <span class="text-green">{{ user.learningPreferences || 'UNKNOWN' }}</span></p>
+        <p>FAV GAME: <span class="text-green">{{ user.favoriteGame || 'NONE' }}</span></p>
+      </div>
+
+      <div class="retro-box" *ngIf="isOwnProfile && friendRequests.length > 0">
+        <h3 class="box-title blink-green">>> NEUE ANFRAGEN ({{ friendRequests.length }})</h3>
+
+        <div *ngFor="let req of friendRequests" class="request-item" style="margin-bottom: 10px; border-bottom: 1px dashed #555; padding-bottom: 5px;">
+          <div style="display:flex; align-items:center; gap:10px;">
+             <span style="color: yellow;">{{ req.senderName }}</span> möchte dein Freund sein.
+          </div>
+          <div style="margin-top: 5px; display:flex; gap: 10px;">
+            <button class="retro-btn" (click)="acceptRequest(req.requestId)">[ ANNEHMEN ]</button>
+            <button class="retro-btn danger" (click)="declineRequest(req.requestId)">[ ABLEHNEN ]</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="retro-box">
+        <h3 class="box-title">> FREUNDESLISTE</h3>
+
+        <div class="search-container" *ngIf="isOwnProfile">
+          <div class="config-row">
+            <input
+              type="text"
+              [(ngModel)]="searchTerm"
+              (input)="onSearchInput()"
+              placeholder="FIND USER..."
+              class="retro-input text-input"
+            />
+          </div>
+
+          <div class="search-results" *ngIf="showSearchResults && searchResults.length > 0">
+            <div *ngFor="let result of searchResults" class="search-item">
+              <span class="search-name" (click)="viewFriendProfile(result.username)">{{ result.username }}</span>
+              <button class="btn-small-add" (click)="addSearchedUser(result.username)">+ ADD</button>
+            </div>
+          </div>
+        </div>
+
+        <ul class="friend-list">
+          <li *ngFor="let friend of user.friends" style="display: flex; justify-content: space-between; align-items: center;">
+
+            <span class="friend-link" (click)="viewFriendProfile(friend.username)">
+              >> {{ friend.username }}
+            </span>
+
+            <div *ngIf="isOwnProfile" style="display:flex; gap:5px;">
+              <button class="retro-btn danger" style="font-size: 0.6rem; padding: 2px 5px;" (click)="removeFriend(friend.username)">Freund entfernen</button>
+            </div>
+
+          </li>
+          <li *ngIf="!user.friends?.length" class="empty-msg">Huch. Deine Freundesliste ist leer</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="modal-overlay" *ngIf="showAvatarModal">
+    <div class="retro-modal">
+      <div class="modal-header">
+        CHOOSE CHARACTER
+        <button class="close-btn" (click)="closeAvatarModal()">X</button>
+      </div>
+      <div class="modal-body">
+        <div class="avatar-grid">
+          <img *ngFor="let av of availableAvatars"
+               [src]="av"
+               class="avatar-option"
+               (click)="selectAvatar(av)">
+        </div>
+
+        <div class="custom-url-section">
+          <p>OR ENTER URL:</p>
+          <input type="text" [(ngModel)]="customAvatarUrl" class="retro-input full-width" placeholder="https://...">
+          <button class="retro-btn full-width" (click)="saveCustomAvatar()">LOAD URL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+<div class="retro-box request-box" *ngIf="isOwnProfile && friendRequests.length > 0">
+        <div class="mail-header">
+          <div class="pulsating-icon">📩</div>
+          <h3 class="box-title blink-green">NEUE POST ({{ friendRequests.length }})</h3>
+        </div>
+
+        <div *ngFor="let req of friendRequests" class="request-item">
+          <div class="req-info">
+             <img [src]="req.senderAvatar || '/assets/logo.png'" class="mini-avatar">
+             <span class="req-name">{{ req.senderName }}</span>
+          </div>
+          <div class="req-actions">
+            <button class="retro-btn success small" (click)="acceptRequest(req.requestId)">✓ JA</button>
+            <button class="retro-btn danger small" (click)="declineRequest(req.requestId)">X NEIN</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="retro-box" *ngIf="isOwnProfile && friendRequests.length === 0" style="opacity: 0.7;">
+        <h3 class="box-title">POSTEINGANG</h3>
+        <p>_NO NEW MESSAGES_</p>
+      </div>
+<ng-template #loading>
+  <div class="loading-screen">
+    LOADING DATA...
+  </div>
+</ng-template>

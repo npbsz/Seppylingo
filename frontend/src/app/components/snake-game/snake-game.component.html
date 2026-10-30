@@ -1,0 +1,113 @@
+<div class="page-wrapper">
+  <div class="snake-game-container">
+
+    <!-- Logo oben -->
+    <img
+      id="logo"
+      src="assets/snake-game-ai-gen.png"
+      alt="snake-logo"
+    />
+
+    <!-- Titel -->
+    <h2 class="game-title">S N A K E</h2>
+
+    <!-- Score / Highscore -->
+    <div class="scores">
+      <h1 id="score">{{ score.toString().padStart(3, '0') }}</h1>
+      <h1 id="highScore" *ngIf="highScore > 0">
+        {{ highScore.toString().padStart(3, '0') }}
+      </h1>
+    </div>
+
+    <!-- Highscore-Popup -->
+    <div class="highscore-message" *ngIf="showHighscoreMessage">
+      Neuer Highscore!
+    </div>
+
+    <!-- Revive! Popup -->
+    <div class="revive-flash" *ngIf="showReviveFlash">
+      REVIVE!
+    </div>
+
+    <!-- Hinweis nach Revive -->
+    <div class="resume-hint" *ngIf="showResumeHint">
+      Klicke Leertaste zum Weiterspielen!
+    </div>
+
+    <!-- Countdown -->
+    <div class="countdown-overlay" *ngIf="isCountdownActive">
+      <span>{{ countdownText }}</span>
+    </div>
+
+    <!-- Wahl: Revive oder neu starten -->
+    <div class="revive-choice-modal" *ngIf="isReviveChoicePending">
+      <h2>Game Over</h2>
+      <p>Willst du 3 Vokabeln lösen, um weiterzuspielen?</p>
+      <div class="revive-choice-buttons">
+        <button (click)="chooseRevive()">Ja, reviven</button>
+        <button (click)="chooseRestart()">Neu starten</button>
+      </div>
+    </div>
+
+    <!-- Spielfeld -->
+    <div class="game-border-1">
+      <div class="game-border-2">
+        <div class="game-border-3">
+          <div
+            id="game-board"
+            #gameBoard
+            [class.revived]="revivePauseActive"
+          ></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Start-Hinweis -->
+    <h1
+      id="instruction-text"
+      *ngIf="
+        !gameStarted &&
+        !isRevivePending &&
+        !isCountdownActive &&
+        !showResumeHint &&
+        !isReviveChoicePending
+      "
+    >
+      Drücke LEERTASTE zum Starten
+    </h1>
+
+    <!-- Revive-Vokabel-Modal -->
+    <div class="revive-modal" *ngIf="isRevivePending">
+      <h2>Du bist gestorben!</h2>
+      <p>Übersetze 3 Vokabeln richtig, um weiterzuspielen.</p>
+
+      <div *ngIf="reviveWords.length === 3 && currentReviveWordIndex < 3">
+        <h3>Frage {{ currentReviveWordIndex + 1 }} / 3:</h3>
+        <p class="vocab-question">
+          Was heißt
+          "<strong>{{ reviveWords[currentReviveWordIndex].wordEN }}</strong>"
+          auf Deutsch?
+        </p>
+
+        <input
+          type="text"
+          [(ngModel)]="userReviveAnswer"
+          (keydown.enter)="handleReviveAnswer()"
+          placeholder="Deine Antwort..."
+          autocomplete="off"
+        />
+        <button type="button" (click)="handleReviveAnswer()">Bestätigen</button>
+
+        <p *ngIf="currentReviveWordIndex > 0">
+          Bisher richtig: {{ reviveCorrectCount }} /
+          {{ currentReviveWordIndex }}
+        </p>
+      </div>
+
+      <div *ngIf="reviveWords.length < 3">
+        <p>Lade Vokabeln...</p>
+      </div>
+    </div>
+
+  </div>
+</div>

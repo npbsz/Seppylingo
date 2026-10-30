@@ -1,0 +1,75 @@
+<div class="game-container">
+
+  <!-- HEADER -->
+  <div class="header">
+    <button class="back-btn" (click)="goBack()">← ZURÜCK</button>
+    <!-- Rundenanzeige wenn Spiel läuft -->
+    <h1 *ngIf="!isGameOver">Frage {{ currentRound + 1 }} / {{ MAX_ROUNDS }}</h1>
+    <h1 *ngIf="isGameOver">Ergebnis</h1>
+    <div class="score">Punkte: {{ score }}</div>
+  </div>
+
+  <!-- STATE 1: SPIEL LÄUFT -->
+  <div *ngIf="!isGameOver">
+
+    <!-- Lade-Animation -->
+    <div *ngIf="loading" class="loading-box">
+      <div class="spinner"></div>
+      <p>Lade Bild...</p>
+    </div>
+
+    <!-- Spielbereich -->
+    <div *ngIf="!loading && currentImageUrl" class="quiz-content">
+      <div class="image-frame">
+        <img [src]="currentImageUrl" alt="Rate das Bild" class="quiz-image">
+      </div>
+
+      <div class="options-grid">
+        <button *ngFor="let option of options"
+                class="option-btn"
+                [class.correct]="answered && option === correctWord"
+                [class.wrong]="answered && option !== correctWord && option === selectedOption"
+                (click)="checkAnswer(option)"
+                [disabled]="answered">
+          {{ option }}
+        </button>
+      </div>
+
+      <!-- Feedback Area -->
+      <div *ngIf="answered" class="feedback-area">
+        <p *ngIf="selectedOption === correctWord" class="msg-correct">Richtig! +10 Punkte</p>
+        <p *ngIf="selectedOption !== correctWord" class="msg-wrong">Falsch! Das war: {{ correctWord }}</p>
+
+        <!-- Button ändert Text bei der letzten Frage -->
+        <button class="next-btn" (click)="goToNextQuestion()">
+          {{ currentRound + 1 === MAX_ROUNDS ? 'Zum Ergebnis' : 'Nächstes Bild >' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Fehlerfall -->
+    <div *ngIf="!loading && !currentImageUrl" class="error-box">
+      <p>Bild nicht gefunden.</p>
+      <button class="next-btn" (click)="goToNextQuestion()">Überspringen</button>
+    </div>
+  </div>
+
+  <!-- STATE 2: GAME OVER SCREEN -->
+  <div *ngIf="isGameOver" class="game-over-box">
+    <h2>Spiel beendet!</h2>
+
+    <div class="final-score">
+      {{ score }} / {{ MAX_ROUNDS * 10 }}
+    </div>
+
+    <p *ngIf="score >= 80">Fantastisch! </p>
+    <p *ngIf="score < 80 && score >= 50">Gut gemacht! </p>
+    <p *ngIf="score < 50">Übung macht den Meister! </p>
+
+    <div class="action-buttons">
+      <button class="next-btn" (click)="startGame()">Nochmal spielen </button>
+      <button class="back-btn-large" (click)="goBack()">Zum Dashboard </button>
+    </div>
+  </div>
+
+</div>

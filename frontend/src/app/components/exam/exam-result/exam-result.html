@@ -1,0 +1,55 @@
+<div class="result-container" *ngIf="result">
+
+  <h1 class="result-title">
+    Prüfung abgeschlossen
+  </h1>
+
+  <div
+    class="result-status"
+    [class.passed]="result.passed"
+    [class.failed]="!result.passed">
+
+    {{ result.passed ? 'BESTANDEN' : 'NICHT BESTANDEN' }}
+  </div>
+
+  <div class="result-stats">
+    <div>Fragen gesamt: {{ result.total }}</div>
+    <div>Richtig: {{ result.correct }}</div>
+    <div>Ergebnis: {{ result.percentage | number:'1.0-0' }}%</div>
+  </div>
+
+  <!-- 🧠 Einschätzung (nur Intro) -->
+  <div class="result-recommendation" *ngIf="examMode === 'intro'">
+
+    <ng-container *ngIf="result.percentage < 20">
+      <strong>Du bist noch ganz am Anfang 🚀</strong><br>
+      Kein Problem! Starte mit den Grundlagen und du wirst schnell Fortschritte merken.
+    </ng-container>
+
+    <ng-container *ngIf="result.percentage >= 20 && result.percentage < 40">
+      <strong>Grundkenntnisse erkannt 👍</strong><br>
+      Du kennst schon einiges – wir bauen das jetzt systematisch aus.
+    </ng-container>
+
+    <ng-container *ngIf="result.percentage >= 40 && result.percentage < 60">
+      <strong>Solide Basis 💪</strong><br>
+      Gute Voraussetzungen! Mit regelmäßigem Training kommst du schnell weiter.
+    </ng-container>
+
+    <ng-container *ngIf="result.percentage >= 60 && result.percentage < 80">
+      <strong>Sehr gutes Niveau 🔥</strong><br>
+      Du bist schon weit! Jetzt geht es um Feinschliff und Sicherheit.
+    </ng-container>
+
+    <ng-container *ngIf="result.percentage >= 80">
+      <strong>Wow! Fast muttersprachlich 🤯</strong><br>
+      Starke Leistung! Lass uns dein Niveau weiter perfektionieren.
+    </ng-container>
+
+  </div>
+
+  <button class="home-btn" (click)="goHome()">
+    Zur Startseite
+  </button>
+
+</div>

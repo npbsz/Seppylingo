@@ -1,0 +1,117 @@
+<div class="game-container">
+
+  @if (isLoading) {
+    <div class="loading">Lückentext lädt...</div>
+  }
+
+  @else if (viewMode === 'selection') {
+    <div class="menu-screen">
+      <h2>Wähle deinen Modus</h2>
+      <div class="selection-buttons">
+        <button mat-raised-button color="primary" (click)="startAiMode()">
+          🤖 KI Generator (Beliebige Themen)
+        </button>
+        <button mat-raised-button (click)="loadNormalGame()">
+          📜 Klassisch (Einzelne Aufgabe)
+        </button>
+      </div>
+    </div>
+  }
+
+  @else if (viewMode === 'ai-input') {
+    <div class="input-screen">
+      <h3>KI Aufgaben konfigurieren</h3>
+      <div class="config-group">
+        <label>Thema:</label>
+        <input [(ngModel)]="aiTheme" placeholder="z.B. London Trip..." class="theme-input">
+      </div>
+      <div class="config-group">
+        <label>Anzahl: <strong>{{ taskCount }}</strong></label>
+        <div class="number-grid">
+          @for (num of ['1','2','3','4','5','6','7','8','9','10']; track num) {
+            <button class="num-btn" [class.active]="taskCount === num" (click)="taskCount = num">{{ num }}</button>
+          }
+        </div>
+      </div>
+      <div class="actions">
+        <button mat-raised-button color="accent" [disabled]="!aiTheme" (click)="generateAiTasks()">Aufgaben generieren</button>
+        <button mat-button (click)="viewMode = 'selection'">Zurück</button>
+      </div>
+    </div>
+  }
+
+  @else if (tasks.length > 0) {
+    <div>
+      <div class="header-row">
+        <mat-slide-toggle [(ngModel)]="isMultipleChoiceMode" (change)="resetAnswer()" color="primary">Multiple Choice</mat-slide-toggle>
+        <span class="progress-badge">Aufgabe {{ currentIndex + 1 }} / {{ tasks.length }}</span>
+      </div>
+
+      <p class="translation-hint">"{{ tasks[currentIndex].translation }}"</p>
+      <app-tts-button [textToSpeak]="tasks[currentIndex].translation" [lang]="'de-De'"></app-tts-button>
+
+      <hr>
+
+      <form (ngSubmit)="onSubmit()" class="game-form">
+        <div class="sentence">
+          <span class="text-part">{{ textParts[0] }}</span>
+
+          @if (!isMultipleChoiceMode) {
+            <input type="text" class="answer-input" [(ngModel)]="userAnswer" name="userAnswer" [disabled]="isSubmitted">
+          } @else {
+            <span class="answer-placeholder">{{ userAnswer || '__________' }}</span>
+          }
+
+          <span class="text-part">{{ textParts[1] }}</span>
+        </div>
+
+        @if (isMultipleChoiceMode) {
+          <app-options-grid
+            [options]="answerOptions"
+            [selectedOption]="userAnswer"
+            [correctOption]="tasks[currentIndex].answer"
+            [showFeedback]="isSubmitted"
+            [disabled]="isSubmitted"
+            (optionSelected)="selectOption($event)">
+          </app-options-grid>
+        }
+
+        <div class="footer-actions">
+          <app-tts-button [textToSpeak]="textParts[0] + ' blank ' + textParts[1]" [lang]="'en-US'"></app-tts-button>
+          @if (!isSubmitted) {
+            <button type="submit" class="submit-btn" [disabled]="!userAnswer">Antwort Überprüfen</button>
+          }
+        </div>
+      </form>
+
+      @if (isCorrect != null) {
+        <div class="feedback" [class.correct]="isCorrect" [class.incorrect]="!isCorrect">
+          @if (isCorrect) {
+            <span>Korrekt!</span>
+          } @else {
+            <span>Falsch. Richtig: "{{ tasks[currentIndex].answer }}"</span>
+          }
+        </div>
+      }
+
+      @if (isSubmitted) {
+        <div class="navigation-row">
+
+          @if (tasks[0].gameId === 'ai-generated' && currentIndex < tasks.length - 1) {
+            <button mat-raised-button color="primary" (click)="nextTask()">Nächste Aufgabe</button>
+          }
+
+          @else if (tasks[0].gameId === 'ai-generated' && currentIndex === tasks.length - 1) {
+            <div class="win-message">🎉 Alle Aufgaben gelöst!</div>
+            <button mat-raised-button color="accent" (click)="viewMode = 'selection'">Zurück zum Menü</button>
+          }
+
+          @else if (tasks[0].gameId !== 'ai-generated') {
+            <button mat-raised-button color="primary" (click)="loadNormalGame()">Nächste Frage</button>
+            <button mat-button (click)="viewMode = 'selection'">Beenden</button>
+          }
+        </div>
+      }
+    </div>
+  }
+</div>

@@ -1,0 +1,134 @@
+/* Game Container Card  */
+.game-container {
+  max-width: 600px;
+  margin: 40px auto;
+  padding: 30px;
+
+  /* Wird von globaler styles.css überschrieben, aber wir stellen die Kontraste sicher */
+  background-color: #3a3a3a; /* Dunkelgrauer Kartenhintergrund */
+
+  /* Helle Textfarbe für alle Elemente innerhalb des Containers, die keine Farbe haben */
+  color: #ffffff;
+
+  /* Retro-Kanten */
+  border-radius: 0;
+  border: 4px solid #ffffff; /* weißer Rand */
+  box-shadow: none;
+
+  /* Textelemente bekommen die richtige Farbe */
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.8rem;
+}
+
+/* Allgemeine Textelemente  */
+.loading {
+  text-align: center;
+  font-size: 1em;
+  color: #ffc107; /* Retro-Gelb */
+  padding: 40px 10px;
+  font-style: italic;
+}
+
+.translation-hint {
+  font-style: italic;
+  color: #aaaaaa; /* Helleres Grau für den Hint */
+  margin-bottom: 15px;
+  display: block;
+  font-size: 0.7rem;
+}
+
+.sentence {
+  font-size: 1.1em;
+  font-weight: 500;
+  margin-bottom: 25px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  line-height: 1.6;
+}
+
+/* Eingabefelder */
+.answer-input {
+  font-size: 0.8em;
+  padding: 12px 15px;
+  background-color: #2c2c2c; /* Dunkler als der Container-Hintergrund */
+  border: 3px solid #00aa00; /* Grüner Rand */
+  border-radius: 0;
+  color: #ffffff; /* Sicherstellen, dass die Eingabe sichtbar ist */
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Clear focus state für Accessibility */
+.answer-input:focus {
+  outline: none;
+  border-color: #55ff55; /* Helleres Grün beim Fokus */
+  box-shadow: 0 0 0 4px rgba(0, 170, 0, 0.4);
+}
+
+/* Buttons  */
+.submit-btn,
+.reload-btn {
+  display: block;
+  width: 100%;
+  padding: 14px 20px;
+  font-size: 0.9em;
+  font-weight: bold;
+  color: #000000; /* Schwarzer Text */
+  border: 4px solid #000000;
+  border-radius: 0;
+  cursor: pointer;
+  transition: all 0.1s linear;
+  margin-top: 20px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Disabled state */
+.submit-btn:disabled,
+.reload-btn:disabled {
+  background-color: #444444;
+  color: #888888;
+  border-color: #888888;
+  cursor: not-allowed;
+}
+
+/* Button Farben */
+.submit-btn {
+  background-color: #00aa00; /* Grün */
+}
+.submit-btn:hover:not(:disabled) {
+  background-color: #55ff55;
+  border-color: #000000;
+}
+
+/* Feedback-Boxen */
+.feedback.correct {
+  background-color: #00aa00; /* Grüner Hintergrund */
+  color: #000000; /* Schwarzer Text */
+  border: 4px solid #000000;
+  padding: 10px;
+  border-radius: 0;
+  margin-top: 15px;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+.feedback.incorrect {
+  background-color: #ff5555; /* Roter Hintergrund */
+  color: #000000; /* Schwarzer Text */
+  border: 4px solid #000000;
+  padding: 10px;
+  border-radius: 0;
+  margin-top: 15px;
+  font-size: 0.8em;
+  text-align: center;
+}
+
+/* Responsive Anpassung */
+@media (max-width: 450px) {
+  .options-grid {
+    grid-template-columns: 1fr;
+  }
+}

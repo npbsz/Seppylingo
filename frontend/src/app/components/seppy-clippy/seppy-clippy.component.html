@@ -1,0 +1,14 @@
+<div class="clippy-container" *ngIf="isVisible" [class.animate-pop]="isVisible">
+
+  <div class="clippy-bubble">
+    {{ currentMessage }}
+    <div class="bubble-arrow"></div>
+  </div>
+
+  <div class="clippy-actor" (click)="pokeSeppy()">
+    <img src="assets/seppy-wireframe.png" alt="Seppy" onerror="this.style.display='none'">
+    <span *ngIf="!hasImage" style="font-size: 60px;">🦎</span>
+  </div>
+
+  <div class="clippy-close" (click)="hide()">x</div>
+</div>

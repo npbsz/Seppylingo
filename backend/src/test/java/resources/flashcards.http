@@ -1,0 +1,20 @@
+### 1) Nächste Karte abrufen
+GET http://127.0.0.1:8080/api/flashcards/next
+
+### 2) Karte als richtig markieren (ID aus dem GET einsetzen)
+POST http://127.0.0.1:8080/api/flashcards/answer
+Content-Type: application/json
+
+{
+  "cardId": 13,
+  "isRight": true
+}
+
+### 3) Karte als falsch markieren (ID aus dem GET einsetzen)
+POST http://127.0.0.1:8080/api/flashcards/answer
+Content-Type: application/json
+
+{
+  "cardId": 13,
+  "isRight": false
+}

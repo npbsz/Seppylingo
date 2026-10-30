@@ -1,0 +1,375 @@
+/* --- ORIGINAL RETRO HEADER STIL (Beige/Gelb) --- */
+.retro-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fceabb; /* Pastell-Gelb/Beige */
+  border-bottom: 4px solid #f8b500; /* Kräftiges Retro-Gelb */
+  padding: 0.8rem 1.5rem;
+  font-family: 'Courier New', Courier, monospace; /* Retro Font */
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.retro-header-left,
+.retro-header-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex: 1;
+}
+
+.retro-header-right {
+  justify-content: flex-end;
+}
+
+.retro-header-center {
+  flex: 0;
+}
+
+.retro-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3e3e3e;
+  letter-spacing: -1px;
+  text-transform: uppercase;
+  text-shadow: 2px 2px 0 #fff;
+}
+
+/* Dropdown Container für Sprachen */
+.retro-lang-dropdown {
+  position: relative;
+  cursor: pointer;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.4rem 1rem;
+  box-shadow: 3px 3px 0 #333;
+  transition: transform 0.1s;
+  min-width: 140px;
+  text-align: center;
+}
+
+.retro-lang-dropdown:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #333;
+}
+
+.retro-lang-selected {
+  font-weight: bold;
+  color: #333;
+  user-select: none;
+}
+
+.retro-lang-menu {
+  position: absolute;
+  top: 110%;
+  left: 0;
+  width: 100%;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 8px;
+  box-shadow: 3px 3px 0 rgba(0,0,0,0.2);
+  z-index: 100;
+  overflow: hidden;
+}
+
+.retro-lang-option {
+  padding: 0.6rem;
+  border-bottom: 1px solid #eee;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.retro-lang-option:last-child {
+  border-bottom: none;
+}
+
+.retro-lang-option:hover:not(.disabled) {
+  background-color: #f0f0f0;
+}
+
+.retro-lang-option.active {
+  background-color: #e0f7fa;
+  font-weight: bold;
+  color: #006064;
+}
+
+.retro-lang-option.disabled {
+  color: #aaa;
+  cursor: not-allowed;
+  font-style: italic;
+}
+
+/* Buttons (Profil, Zurück, Chat) */
+.retro-back-button,
+.retro-profile-button,
+.chat-toggle-button {
+  background-color: #ff6f69; /* Retro Lachsrot */
+  color: white;
+  font-family: inherit;
+  font-weight: bold;
+  border: 2px solid #333;
+  border-radius: 8px;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  box-shadow: 3px 3px 0 #333;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  transition: transform 0.1s;
+}
+
+.retro-profile-button {
+  background-color: #4db6ac; /* Retro Türkis */
+}
+
+.chat-toggle-button {
+  background-color: #ffd54f; /* Gelb für den Chat-Button */
+  color: #333;
+}
+
+.retro-back-button:hover,
+.retro-profile-button:hover,
+.chat-toggle-button:hover {
+  filter: brightness(1.1);
+}
+
+.retro-back-button:active,
+.retro-profile-button:active,
+.chat-toggle-button:active {
+  transform: translate(2px, 2px);
+  box-shadow: 1px 1px 0 #333;
+}
+
+
+/* --- WINDOWS XP CHAT STIL --- */
+
+.chat-wrapper {
+  position: relative;
+}
+
+/* Das Hauptfenster */
+.xp-window-container {
+  position: absolute;
+  top: 60px; /* Unterhalb des Headers */
+  right: -50px;
+  width: 600px;  /* Groß und breit */
+  height: 650px; /* Hoch */
+  background-color: #ECE9D8; /* Klassisches XP Grau */
+  border: 4px solid #0054E3; /* XP Blau Rahmen */
+  border-top-width: 0;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 6px 6px 15px rgba(0,0,0,0.5);
+  z-index: 2000;
+  display: flex;
+  flex-direction: column;
+  font-family: 'Tahoma', 'Verdana', sans-serif;
+  font-size: 13px;
+  color: black;
+}
+
+/* Blaue Titelleiste */
+.xp-title-bar {
+  height: 35px;
+  /* Original XP Farbverlauf */
+  background: linear-gradient(to bottom, #0058EE 0%, #3593FF 4%, #2884EA 6%, #247AEA 8%, #2173EA 10%, #1D69EB 14%, #1860EA 20%, #1557EA 24%, #124FEA 56%, #1952DA 66%, #1F55C9 76%, #2659B8 86%, #2C5DB0 92%, #3162A8 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 8px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px #0f3774;
+  border-radius: 5px 5px 0 0;
+  cursor: default;
+}
+
+.xp-title {
+  display: flex;
+  align-items: center;
+  font-size: 13px;
+}
+
+/* Controls oben rechts */
+.xp-window-controls {
+  display: flex;
+  gap: 3px;
+}
+
+.xp-control-btn {
+  width: 21px;
+  height: 21px;
+  border: 1px solid white;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #5a82e6, #1046c4);
+  color: white;
+  font-weight: bold;
+  font-family: sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: inset 1px 1px 0 rgba(255,255,255,0.5), inset -1px -1px 0 rgba(0,0,0,0.3);
+}
+
+.xp-control-btn.close {
+  background: linear-gradient(to bottom, #e06b6b, #d63434);
+}
+
+.xp-control-btn:active {
+    box-shadow: inset 1px 1px 2px rgba(0,0,0,0.5);
+    transform: translate(1px, 1px);
+}
+
+/* Fenster Inhalt */
+.xp-window-body {
+  flex-grow: 1;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  background-color: #ECE9D8;
+}
+
+/* Menüleiste */
+.xp-toolbar {
+    margin-bottom: 8px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid #D4D0C8;
+    color: black;
+    font-size: 11px;
+}
+.xp-menu-item {
+    margin-right: 12px;
+    padding: 2px 6px;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+.xp-menu-item:hover {
+    background-color: #316AC5; /* XP Hover Blau */
+    color: white;
+    border: 1px solid #316AC5;
+    box-shadow: 1px 1px 0 rgba(0,0,0,0.2);
+}
+
+/* Sunken Box Style (Eingedrückt) */
+.xp-sunken-box {
+  border: 2px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  background-color: white;
+  font-family: 'Tahoma', sans-serif;
+  padding: 8px;
+  font-size: 12px;
+}
+
+/* Chat Verlauf */
+.chat-history {
+  flex-grow: 1;
+  overflow-y: scroll;
+  margin-bottom: 12px;
+  height: 400px;
+  background: white;
+}
+
+/* Scrollbar Webkit Style */
+.chat-history::-webkit-scrollbar {
+    width: 16px;
+    background-color: #ece9d8;
+}
+.chat-history::-webkit-scrollbar-thumb {
+    background-color: #c5c2b8;
+    border: 1px solid #fcfcfc;
+    box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #888;
+}
+.chat-history::-webkit-scrollbar-button {
+    background-color: #ece9d8;
+    width: 16px;
+    height: 16px;
+    box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #888;
+}
+
+/* Chat Zeilen */
+.chat-message-line {
+    margin-bottom: 6px;
+    line-height: 1.4;
+}
+.chat-username { font-weight: bold; margin-right: 6px; }
+.chat-username.ai-user { color: #000080; }
+.chat-username.human-user { color: #A00000; }
+.chat-text { color: black; }
+
+/* Eingabe Area */
+.chat-input-area {
+  display: flex;
+  height: 100px;
+}
+.chat-input-area textarea {
+  flex-grow: 1;
+  resize: none;
+  margin-right: 12px;
+  font-size: 12px;
+  color: black;
+}
+.xp-button-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+/* XP Buttons */
+.xp-button {
+  min-width: 80px;
+  height: 28px;
+  font-family: 'Tahoma', sans-serif;
+  font-size: 12px;
+  color: black;
+  border: 1px solid #003c74;
+  border-radius: 3px;
+  background: linear-gradient(to bottom, #fff 0%, #ececec 50%, #d8d8d8 50%, #ececec 100%);
+  cursor: pointer;
+  text-align: center;
+}
+.xp-button:hover {
+    box-shadow: inset 0 0 0 1px #fcfcfc;
+    border-color: #3c7fb1;
+    background: linear-gradient(to bottom, #fff 0%, #f3f3f3 50%, #e6e6e6 50%, #f3f3f3 100%);
+}
+.xp-button:active {
+    box-shadow: inset 1px 1px 2px #888;
+    transform: translate(1px, 1px);
+    background: #dcdcdc;
+}
+
+/* MSN NUDGE ANIMATION */
+@keyframes shake {
+  0% { transform: translate(0, 0); }
+  10% { transform: translate(-5px, -5px); }
+  20% { transform: translate(5px, 5px); }
+  30% { transform: translate(-5px, 5px); }
+  40% { transform: translate(5px, -5px); }
+  50% { transform: translate(-5px, 0); }
+  60% { transform: translate(5px, 0); }
+  70% { transform: translate(0, 5px); }
+  80% { transform: translate(0, -5px); }
+  100% { transform: translate(0, 0); }
+}
+
+.nudge-effect {
+  animation: shake 0.4s cubic-bezier(.36,.07,.19,.97) both;
+  border-color: red !important; /* Rahmen leuchtet kurz rot */
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .retro-header {
+    flex-direction: column;
+    gap: 15px;
+  }
+  .xp-window-container {
+      width: 95vw;
+      height: 60vh;
+      right: 0;
+      top: 100px;
+      left: 2.5vw;
+  }
+}

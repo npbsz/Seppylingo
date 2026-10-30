@@ -1,0 +1,487 @@
+/* Container als "Monitor" */
+.retro-screen {
+  font-family: 'Press Start 2P', 'Courier New', monospace;
+  background-color: #1a1a1a;
+  color: #00ff00; /* Terminal Grün */
+  min-height: 80vh;
+  padding: 2rem;
+  position: relative;
+  overflow: hidden;
+  border: 4px solid #333;
+  box-shadow: 0 0 20px rgba(0, 255, 0, 0.2);
+}
+
+/* CRT Scanlines Effekt */
+.scanlines {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0),
+    rgba(255, 255, 255, 0) 50%,
+    rgba(0, 0, 0, 0.2) 50%,
+    rgba(0, 0, 0, 0.2)
+  );
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.6;
+}
+
+.glow-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.9);
+  pointer-events: none;
+  z-index: 11;
+}
+
+/* Back Button */
+.btn-back-home {
+  background: #ff00ff;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  margin-bottom: 1rem;
+  position: relative;
+  z-index: 20;
+}
+.btn-back-home:hover {
+  background: #aa00aa;
+}
+
+/* Layout Grid */
+.profile-layout {
+  display: grid;
+  grid-template-columns: 350px 1fr;
+  gap: 2rem;
+  position: relative;
+  z-index: 5;
+}
+
+/* Linke Spalte (Karte) */
+.character-card {
+  background: #000;
+  border: 4px double #00ff00;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 8px 8px 0 #004400;
+  height: fit-content;
+}
+
+.card-header {
+  font-size: 0.8rem;
+  margin-bottom: 1.5rem;
+  color: #00ff00;
+  text-shadow: 0 0 5px #00ff00;
+}
+
+.header-deco {
+  opacity: 0.5;
+}
+
+/* Avatar Frame */
+.avatar-frame-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.avatar-frame {
+  width: 150px;
+  height: 150px;
+  border: 4px solid #fff;
+  padding: 4px;
+  background: #222;
+  image-rendering: pixelated;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.btn-change-avatar {
+  background: transparent;
+  border: none;
+  color: #ffff00;
+  font-family: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-change-avatar:hover {
+  color: #fff;
+  text-shadow: 0 0 5px #fff;
+}
+
+/* Username Style */
+.retro-username {
+  margin-top: 1.5rem;
+  font-size: 1.5rem;
+  color: #00ffff; /* Cyan */
+  text-transform: uppercase;
+  text-shadow: 4px 4px 0 #000088;
+  letter-spacing: 2px;
+}
+
+.level-badge {
+  background-color: #ff00ff; /* Magenta */
+  color: #fff;
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  font-size: 0.8rem;
+  margin-bottom: 1rem;
+  box-shadow: 4px 4px 0 #880088;
+}
+
+.fav-game-display {
+  margin-bottom: 2rem;
+  font-size: 0.8rem;
+  color: #ffff00;
+}
+.game-highlight {
+  color: #fff;
+  text-decoration: underline;
+  font-weight: bold;
+}
+
+/* Stats Liste */
+.retro-stats {
+  text-align: left;
+  border-top: 2px dashed #004400;
+  padding-top: 1rem;
+}
+
+.stat-row {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.stat-label {
+  color: #88ff88;
+}
+
+.stat-val {
+  color: #fff;
+}
+
+.blink-green {
+  animation: blink 1s infinite;
+  color: #00ff00;
+}
+
+/* Rechte Spalte */
+.details-column {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.retro-box {
+  background: rgba(0, 20, 0, 0.8);
+  border: 2px solid #00ff00;
+  padding: 1rem;
+  position: relative;
+}
+
+/* Eck-Dekorationen */
+.retro-box::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; right: -4px;
+  width: 10px; height: 10px;
+  background: #00ff00;
+}
+
+.box-title {
+  margin-top: 0;
+  font-size: 1rem;
+  color: #ffff00;
+  border-bottom: 2px solid #004400;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+/* Badges */
+.badge-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.retro-badge {
+  border: 2px solid #fff;
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  background: #000;
+  box-shadow: 4px 4px 0 #444;
+}
+
+/* Inputs & Buttons */
+.config-row {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.mt-2 { margin-top: 1rem; }
+.text-green { color: #00ff00; }
+
+.retro-input {
+  background: #000;
+  color: #00ff00;
+  border: 2px solid #00ff00;
+  padding: 0.5rem;
+  font-family: inherit;
+  outline: none;
+}
+
+.text-input {
+  flex: 1;
+}
+
+.retro-btn {
+  background: #008800;
+  color: #fff;
+  border: 2px solid #fff;
+  padding: 0.5rem 1rem;
+  font-family: inherit;
+  cursor: pointer;
+  box-shadow: 4px 4px 0 #000;
+}
+
+.retro-btn:hover {
+  background: #00bb00;
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0 #000;
+}
+
+/* SEARCH RESULTS & FRIENDS */
+.search-container {
+  position: relative;
+  margin-bottom: 1rem;
+}
+
+.search-results {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #000;
+  border: 2px solid #00ffff;
+  z-index: 50;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+}
+
+.search-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem;
+  border-bottom: 1px dashed #004444;
+}
+
+.search-item:hover {
+  background: #002222;
+}
+
+.search-name {
+  color: #00ffff;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.btn-small-add {
+  background: #008800;
+  color: #fff;
+  border: 1px solid #fff;
+  font-family: inherit;
+  font-size: 0.7rem;
+  cursor: pointer;
+}
+
+.friend-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.friend-list li {
+  padding: 0.3rem 0;
+  color: #00ffff;
+  font-size: 0.9rem;
+}
+
+.friend-link {
+  cursor: pointer;
+}
+.friend-link:hover {
+  text-decoration: underline;
+  color: #fff;
+  text-shadow: 0 0 5px #00ffff;
+}
+
+.empty-msg {
+  color: #666;
+  font-style: italic;
+}
+
+/* --- MODAL --- */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  z-index: 100;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.retro-modal {
+  background: #000;
+  border: 4px solid #fff;
+  width: 90%;
+  max-width: 500px;
+  box-shadow: 10px 10px 0 #ff00ff;
+}
+
+.modal-header {
+  background: #fff;
+  color: #000;
+  padding: 0.5rem;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close-btn {
+  background: #ff0000;
+  color: #fff;
+  border: none;
+  font-family: inherit;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+.avatar-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(60px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.avatar-option {
+  width: 100%;
+  border: 2px solid #333;
+  cursor: pointer;
+}
+
+.avatar-option:hover {
+  border-color: #00ff00;
+  transform: scale(1.1);
+}
+
+.full-width {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+
+/* Loading */
+.loading-screen {
+  color: #00ff00;
+  font-family: monospace;
+  font-size: 1.5rem;
+  text-align: center;
+  margin-top: 20%;
+  animation: blink 0.5s infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .profile-layout {
+    grid-template-columns: 1fr;
+  }
+}
+/* Pulsierender Brief */
+.mail-header {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #444;
+  padding-bottom: 10px;
+}
+
+.pulsating-icon {
+  font-size: 2rem;
+  animation: pulse-mail 1.5s infinite;
+}
+
+@keyframes pulse-mail {
+  0% { transform: scale(1); text-shadow: 0 0 0 rgba(255, 255, 0, 0); }
+  50% { transform: scale(1.2); text-shadow: 0 0 10px rgba(255, 255, 0, 0.8); }
+  100% { transform: scale(1); text-shadow: 0 0 0 rgba(255, 255, 0, 0); }
+}
+
+/* Style für die Anfrage-Items */
+.request-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(0,0,0,0.3);
+  padding: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #555;
+}
+
+.req-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mini-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid #fff;
+}
+
+.req-name {
+  color: #ffff00; /* Retro Gelb */
+  font-weight: bold;
+}
+
+.req-actions {
+  display: flex;
+  gap: 5px;
+}
+
+.small {
+  font-size: 0.6rem;
+  padding: 4px 8px;
+}
+
+.success { border-color: #0f0; color: #0f0; }
+.success:hover { background: #0f0; color: #000; }

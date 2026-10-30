@@ -1,0 +1,33 @@
+<div class="exam-start-wrap">
+  <div class="exam-start-card">
+    <h1 class="title">{{ title }}</h1>
+    <p class="subtitle">{{ subtitle }}</p>
+
+    <div class="info-box">
+      <div class="info-row">
+        <span class="label">Umfang</span>
+        <span class="value">20 Fragen</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Mix</span>
+        <span class="value">MC · Lückentext · Hörverstehen</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Bestehen ab</span>
+        <span class="value">80%</span>
+      </div>
+    </div>
+
+    <div class="hint">
+      {{ hintText }}
+    </div>
+
+    <button class="start-btn" (click)="startExam()" [disabled]="loading">
+      {{ loading ? 'STARTE…' : 'START' }}
+    </button>
+
+    <div class="small-note">
+      Nach dem Start werden deine Antworten am Ende automatisch eingereicht.
+    </div>
+  </div>
+</div>

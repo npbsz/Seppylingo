@@ -1,0 +1,40 @@
+<div class="game-container">
+
+  @if (isLoading) {
+    <div class="loading">Lückentext lädt...</div>
+  } @else if (gameData) {
+    <div>
+      <app-tts-button [textToSpeak]="correctPhrase" [lang]="'en-US'"></app-tts-button>
+
+      <app-options-grid
+        [options]="gameData.phrases"
+        [selectedOption]="userAnswer"
+        [correctOption]="correctPhrase"
+        [showFeedback]="isSubmitted"
+        [disabled]="isSubmitted"
+        (optionSelected)="selectOption($event)">
+      </app-options-grid>
+
+      @if (!isSubmitted) {
+        <button (click)="onSubmit()" type="submit" class="submit-btn" [disabled]="!userAnswer">
+          Antwort Überprüfen
+        </button>
+      }
+
+      @if (isCorrect != null) {
+        <div class="feedback" [class.correct]="isCorrect" [class.incorrect]="!isCorrect">
+          @if (isCorrect) {
+            <span>Korrekt!</span>
+          } @else {
+            <span>Falsche Antwort.</span><br>
+            <span>Richtig wäre: "{{ feedback }}"</span>
+          }
+        </div>
+      }
+
+      @if (isSubmitted) {
+        <button (click)="loadGame()" class="submit-btn reload-btn">Nächste Frage</button>
+      }
+    </div>
+  }
+</div>

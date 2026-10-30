@@ -1,0 +1,103 @@
+<div class="auth-container">
+  <div class="logo-section">
+    <img src="assets/logo.png" alt="SeppyLingo" class="logo-img" />
+    <h1 class="retro-title">REGISTRIERUNG</h1>
+  </div>
+
+  <form (ngSubmit)="openAgbCheck()" class="auth-form">
+    <div class="form-group">
+      <label>BENUTZERNAME</label>
+      <input 
+        type="text" 
+        [(ngModel)]="username" 
+        name="username"
+        placeholder="Benutzername wählen"
+        required
+        class="retro-input"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>E-MAIL</label>
+      <input 
+        type="email" 
+        [(ngModel)]="email" 
+        name="email"
+        placeholder="deine@email.com"
+        required
+        class="retro-input"
+      />
+    </div>
+
+    <div class="form-group">
+      <label>PASSWORT</label>
+      <input 
+        type="password" 
+        [(ngModel)]="password" 
+        name="password"
+        placeholder="Min. 6 Zeichen"
+        required
+        minlength="6"
+        class="retro-input"
+      />
+    </div>
+
+    <div *ngIf="errorMessage" class="error-box">
+      ⚠️ {{errorMessage}}
+    </div>
+
+    <div *ngIf="successMessage" class="success-box">
+      ✓ {{successMessage}}
+    </div>
+
+    <button type="submit" class="btn-submit">
+      ✨ WEITER
+    </button>
+  </form>
+
+  <div class="auth-footer">
+    <p>Schon registriert?</p>
+    <a routerLink="/login" class="link-secondary">HIER EINLOGGEN</a>
+  </div>
+</div>
+
+<div class="modal-overlay" *ngIf="showAgbModal">
+  <div class="retro-modal">
+    
+    <div *ngIf="!showWarning">
+      <h2 class="retro-title">📜 DATENSCHUTZ</h2>
+      
+      <div class="agb-text">
+        <p>Willkommen bei SeppyLingo!</p>
+        <p>Wir speichern:</p>
+        <ul>
+          <li>Benutzername & E-Mail</li>
+          <li>Deinen Lernfortschritt</li>
+          <li>Datum deiner Zustimmung</li>
+        </ul>
+        <p>Deine Daten gehören dir. Keine Weitergabe an Dritte!</p>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="onDecline()">ABLEHNEN</button>
+        <button class="btn-confirm" (click)="confirmAndRegister()">AKZEPTIEREN 🚀</button>
+      </div>
+    </div>
+
+    <div *ngIf="showWarning" class="warning-section">
+      <h2 class="retro-title" style="color: #ff3b30;">⚠️ ACHTUNG!</h2>
+      
+      <p style="margin: 20px 0; line-height: 1.5;">
+        Bist du dir sicher? Ohne deine Zustimmung können wir deinen Account nicht erstellen.
+        <br><br>
+        Du erhältst <strong>keinen Zugriff</strong> auf SeppyLingo.
+      </p>
+
+      <div class="modal-actions">
+        <button class="btn-cancel" (click)="closeModal()">JA, ABBRECHEN</button>
+        <button class="btn-confirm" (click)="onBackToAgb()">ZURÜCK</button>
+      </div>
+    </div>
+
+  </div>
+</div>

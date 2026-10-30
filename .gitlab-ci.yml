@@ -1,0 +1,97 @@
+stages:
+  - test
+  - build
+
+variables:
+  # Enable BuildKit for faster, cache-friendly builds
+  DOCKER_BUILDKIT: "1"
+  # Required when using docker:dind on GitLab shared runners
+  DOCKER_TLS_CERTDIR: ""
+  # Optional but recommended for performance
+  DOCKER_DRIVER: overlay2
+
+backend_tests:
+  stage: test
+  image: gradle:8.5-jdk21-alpine
+  script:
+    - echo "Starte Backend Tests.."
+    - cd backend
+    - chmod +x gradlew
+    - ./gradlew test
+
+  artifacts:
+    when: always
+    reports:
+      junit : backend/build/test-results/test/**/TEST-*.xml
+
+  cache:
+    key: "$CI_COMMIT_REF_SLUG"
+    paths:
+        - backend/.gradle/
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_COMMIT_TAG
+
+
+build_and_push:
+  stage: build
+  image: docker:26
+  services:
+    - name: docker:26-dind
+      alias: docker
+  # Make sure to use a runner with the docker-build tag (that can actually build)
+  tags:
+    - docker-build
+  before_script:
+    # Log in to GitLab's Container Registry (built-in env vars)
+    - echo "$CI_REGISTRY_PASSWORD" | docker login "$CI_REGISTRY" -u "$CI_REGISTRY_USER" --password-stdin
+  script:
+    # Decide tags
+    - IMAGE="$CI_REGISTRY_IMAGE"
+    - SHA_TAG="$CI_COMMIT_SHORT_SHA"
+    - BRANCH_TAG="$CI_COMMIT_REF_SLUG"
+
+    # Build once, then tag as needed
+    - docker build -t "$IMAGE/frontend:$SHA_TAG" frontend/
+    - docker build -t "$IMAGE/backend:$SHA_TAG" backend/
+
+    # Always push the SHA tag
+    - docker push "$IMAGE/frontend:$SHA_TAG"
+    - docker push "$IMAGE/backend:$SHA_TAG"
+
+    # Also push a branch-friendly tag for non-tag pipelines (useful for testing)
+    - |
+      if [ -z "$CI_COMMIT_TAG" ]; then
+        docker tag "$IMAGE/frontend:$SHA_TAG" "$IMAGE/frontend:$BRANCH_TAG"
+        docker tag "$IMAGE/backend:$SHA_TAG" "$IMAGE/backend:$BRANCH_TAG"
+        docker push "$IMAGE/frontend:$BRANCH_TAG"
+        docker push "$IMAGE/backend:$BRANCH_TAG"
+      fi
+
+    # If this is the default branch, also push :latest
+    - |
+      if [ "$CI_COMMIT_BRANCH" = "$CI_DEFAULT_BRANCH" ]; then
+        docker tag "$IMAGE/frontend:$SHA_TAG" "$IMAGE/frontend:latest"
+        docker tag "$IMAGE/backend:$SHA_TAG" "$IMAGE/backend:latest"
+        docker push "$IMAGE/frontend:latest"
+        docker push "$IMAGE/backend:latest"
+
+      fi
+
+    # If building a Git tag, also publish that exact tag (e.g., v1.2.3)
+    - |
+      if [ -n "$CI_COMMIT_TAG" ]; then
+        docker tag "$IMAGE/frontend:$SHA_TAG" "$IMAGE/frontend:$CI_COMMIT_TAG"
+        docker tag "$IMAGE/backend:$SHA_TAG" "$IMAGE/backend:$CI_COMMIT_TAG"
+        docker push "$IMAGE/frontend:$CI_COMMIT_TAG"
+        docker push "$IMAGE/backend:$CI_COMMIT_TAG"
+      fi
+
+  rules:
+    # Build on pushes, merge requests, and tags
+    - if: $CI_PIPELINE_SOURCE == "push"
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_PIPELINE_SOURCE == "web"
+    - if: $CI_COMMIT_TAG

@@ -1,0 +1,12 @@
+POST http://localhost:8080/api/exams/simple/start
+
+
+### Submit exam – minimal (no answers)
+POST http://localhost:8080/api/exams/submit
+Content-Type: application/json
+
+{
+  "examId": "0c277a05-4d59-4626-854c-cf04e1a81217",
+  "answers": []
+}
+

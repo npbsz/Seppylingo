@@ -1,0 +1,84 @@
+<header class="retro-header">
+
+  <div class="retro-header-left">
+    <span class="retro-title" (click)="goToDashboard()" style="cursor: pointer;">SeppyLingo</span>
+  </div>
+
+  <div class="retro-header-center">
+    <div class="retro-lang-dropdown" (click)="toggleLangMenu()">
+      <div class="retro-lang-selected">🇬🇧 ENGLISCH</div>
+      <div class="retro-lang-menu" *ngIf="langMenuOpen">
+        <div class="retro-lang-option active">🇬🇧 Englisch</div>
+        <div class="retro-lang-option disabled">🇮🇹 Italienisch — Coming Soon</div>
+        <div class="retro-lang-option disabled">🇯🇵 Japanisch — Coming Soon</div>
+        <div class="retro-lang-option disabled">🇪🇸 Spanisch — Coming Soon</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="retro-header-right">
+    <div class="chat-wrapper">
+      <button class="chat-toggle-button" (click)="toggleChat()">
+        <span style="font-size: 14px;">💬</span> Chat
+      </button>
+
+      <div class="xp-window-container" *ngIf="chatOpen" [style.display]="chatOpen ? 'flex' : 'none'" [class.nudge-effect]="isNudging">
+
+        <div class="xp-title-bar">
+          <div class="xp-title">
+            <span style="margin-right: 5px;">🤖</span>
+            SeppyLingo AI - Conversation
+          </div>
+          <div class="xp-window-controls">
+            <div class="xp-control-btn" title="Minimieren">_</div>
+            <div class="xp-control-btn" title="Maximieren">□</div>
+            <div class="xp-control-btn close" (click)="toggleChat()" title="Schließen">X</div>
+          </div>
+        </div>
+
+        <div class="xp-window-body">
+
+          <div class="xp-toolbar">
+            <span class="xp-menu-item" (click)="saveChat()" title="Chat als Textdatei speichern">Chat speichern</span>
+            <span class="xp-menu-item" (click)="clearChat()" title="Chatverlauf leeren">Chat löschen</span>
+            <span class="xp-menu-item" (click)="triggerNudge()" title="Fenster wackeln lassen!">ERDBEBEN!!!!</span>
+
+            <span class="xp-menu-item" style="float:right; margin-right:0;" (click)="rickRoll()" title="Hilfe anfordern">Hilfe</span>
+          </div>
+
+          <div class="chat-history xp-sunken-box" #chatContainer>
+            <div *ngFor="let msg of messages" class="chat-message-line">
+              <span class="chat-username" [ngClass]="{'ai-user': msg.role === 'assistant', 'human-user': msg.role === 'user'}">
+                {{ msg.role === 'assistant' ? 'SeppyLingo AI:' : 'You:' }}
+              </span>
+              <span class="chat-text" style="white-space: pre-wrap;">{{ msg.text }}</span>
+            </div>
+          </div>
+
+          <div class="chat-input-area">
+            <textarea
+              class="xp-sunken-box"
+              [(ngModel)]="userInput"
+              (keydown)="handleEnter($event)"
+              placeholder="Schreib eine Nachricht..."
+            ></textarea>
+            <div class="xp-button-container">
+               <button (click)="sendMessage()" class="xp-button send-btn">Senden</button>
+               <button (click)="toggleChat()" class="xp-button" style="margin-top: 5px;">Schließen</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <button class="retro-profile-button" (click)="goToProfile()">
+      👤 PROFIL
+    </button>
+
+    <button *ngIf="showBackButton" class="retro-back-button" (click)="goBack()">
+      ← ZURÜCK
+    </button>
+  </div>
+
+</header>

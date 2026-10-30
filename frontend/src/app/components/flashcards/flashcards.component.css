@@ -1,0 +1,355 @@
+/* Root: an das globale Pixel-Theme anpassen */
+:host {
+  display: block;
+  color: #ffffff;
+  font-family: 'Press Start 2P', cursive;
+}
+
+/* Seite im Stil des Dashboards: Container mittig, Pixel-Rahmen */
+.trainer-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  border-radius: 0;
+}
+
+/* ===================== HEADER / STATUS ===================== */
+
+.header-card {
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.header-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.header-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.header-block.center {
+  align-items: center;
+  text-align: center;
+}
+
+.header-block.right {
+  margin-left: auto;
+}
+
+.label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffc107;
+}
+
+/* Phase-Anzeige */
+.phase-text {
+  font-size: 0.75rem;
+  color: #ffffff;
+}
+
+/* Score-Anzeige im Pixel-Look */
+.score-row {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.score {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.score .value {
+  font-size: 1rem;
+  color: #55ff55;
+}
+
+/* ===================== MODE-TOGGLE ===================== */
+
+.mode-toggle {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.mode-pill {
+  border-radius: 0;
+  border: 4px solid #ffffff;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.65rem;
+  cursor: pointer;
+  background-color: #2e2e2e;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: background-color 0.1s linear, color 0.1s linear, border-color 0.1s linear;
+}
+
+.mode-pill.active {
+  background-color: #00aa00;
+  border-color: #000000;
+  color: #000000;
+}
+
+.mode-pill:hover:not(:disabled) {
+  background-color: #55ff55;
+  color: #000000;
+}
+
+.mode-pill:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* ===================== LESSON STATES ===================== */
+
+.lesson-state {
+  margin-top: 1.5rem;
+  margin-bottom: 1.5rem;
+  background-color: #2e2e2e;
+  border: 4px solid #ffffff;
+  padding: 1.5rem;
+}
+
+.lesson-state h2 {
+  font-size: 1rem;
+  margin: 0 0 1rem 0;
+  text-transform: uppercase;
+}
+
+.lesson-state p {
+  margin: 0 0 0.75rem 0;
+  font-size: 0.8rem;
+  color: #dddddd;
+}
+
+.lesson-state.finished {
+  text-align: center;
+}
+
+/* ===================== ALERT ===================== */
+
+.alert {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0;
+  font-size: 0.75rem;
+  border: 4px solid #000000;
+}
+
+.alert-error {
+  background-color: #b91c1c;
+  color: #ffffff;
+}
+
+/* ===================== CARD AREA ===================== */
+
+.card-area {
+  margin-top: 1.5rem;
+}
+
+.card-hint {
+  text-align: center;
+  font-size: 0.7rem;
+  color: #cccccc;
+  margin-bottom: 0.75rem;
+}
+
+.card-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+/* Vokabelkarte im Arcade-Stil */
+.card.vocab-card {
+  width: 100%;
+  max-width: 600px;
+  height: 220px;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  perspective: 1200px;
+}
+
+.card-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 4px solid #ffffff;
+  background-color: #2e2e2e;
+  transform-style: preserve-3d;
+  transition: transform 0.4s ease;
+  cursor: pointer;
+}
+
+
+.card.flipped .card-inner {
+  transform: rotateY(180deg);
+}
+
+.card-face {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  backface-visibility: hidden;
+}
+
+/* Vorderseite: Standard-Arcade */
+.card-front {
+  background-color: #2e2e2e;
+}
+
+/* Rückseite: leicht hervorgehoben (Arcade-Look) */
+.card-back {
+  background-color: #1f2937;
+  color: #ffffff;
+  transform: rotateY(180deg);
+}
+
+.card-text {
+  font-size: 1rem;
+  text-align: center;
+}
+
+/* ===================== BUTTONS ===================== */
+
+.btn {
+  border-radius: 0;
+  border: 4px solid #ffffff;
+  padding: 0.75rem 1.5rem;
+  font-size: 0.75rem;
+  font-family: 'Press Start 2P', cursive;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+  background-color: #2e2e2e;
+  color: #ffffff;
+  transition: background-color 0.1s linear, color 0.1s linear, border-color 0.1s linear, transform 0.05s linear;
+}
+
+.btn.primary {
+  background-color: #00aa00;
+  border-color: #000000;
+  color: #000000;
+}
+
+.btn.primary:hover:not(:disabled) {
+  background-color: #55ff55;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.btn:disabled {
+  background-color: #444444;
+  border-color: #888888;
+  color: #888888;
+  cursor: not-allowed;
+}
+
+/* Antwortbuttons in einer Reihe */
+.answer-row {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.answer-btn {
+  min-width: 140px;
+}
+
+/* Falsch / Richtig farblich wie Arcade */
+.answer-btn.wrong {
+  background-color: #b91c1c;
+  border-color: #000000;
+  color: #ffffff;
+}
+
+.answer-btn.wrong:hover:not(:disabled) {
+  background-color: #ef4444;
+}
+
+.answer-btn.right {
+  background-color: #00aa00;
+  border-color: #000000;
+  color: #000000;
+}
+
+.answer-btn.right:hover:not(:disabled) {
+  background-color: #55ff55;
+}
+
+/* ===================== RESPONSIVE ===================== */
+
+@media (max-width: 768px) {
+  .trainer-page {
+    padding: 1.5rem;
+  }
+
+  .header-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-block.right {
+    margin-left: 0;
+  }
+
+  .card.vocab-card {
+    height: 200px;
+  }
+
+  .score-row {
+    gap: 1rem;
+  }
+
+  .lesson-state {
+    padding: 1rem;
+  }
+}
+
+.ai-row {
+  margin-top: 14px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.ai-box {
+  margin-top: 14px;
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.25);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+.ai-title {
+  font-weight: 700;
+  margin-top: 10px;
+  margin-bottom: 6px;
+}
+
+.ai-text {
+  line-height: 1.4;
+}
